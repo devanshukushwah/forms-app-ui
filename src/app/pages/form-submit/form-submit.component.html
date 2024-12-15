@@ -1,7 +1,12 @@
-<main *ngIf="form != null">
+<main *ngIf="form != null" class="form-container">
   <p-card [header]="form.title">
     <p class="m-0">{{ form.description }}</p>
+    <br />
     <app-form-field-factory [formFields]="form.formFields">
     </app-form-field-factory>
+    <br />
+    <div class="d-flex j-end a-center">
+      <p-button label="Submit" />
+    </div>
   </p-card>
 </main>

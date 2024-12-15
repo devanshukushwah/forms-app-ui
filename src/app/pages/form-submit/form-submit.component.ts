@@ -6,6 +6,8 @@ import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { FormFieldFactoryComponent } from '../../components/form-field-factory/form-field-factory.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { DividerModule } from 'primeng/divider';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-form-submit',
@@ -15,6 +17,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CommonModule,
     FormFieldFactoryComponent,
     InputTextModule,
+    DividerModule,
+    ButtonModule,
   ],
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',
