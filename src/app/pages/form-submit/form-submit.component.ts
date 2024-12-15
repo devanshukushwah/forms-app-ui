@@ -1,16 +1,26 @@
 import { Component } from '@angular/core';
 import { FormService } from '../../services/form.service';
 import { ActivatedRoute } from '@angular/router';
+import { Form } from '../../common/interface/Form';
+import { CardModule } from 'primeng/card';
+import { CommonModule } from '@angular/common';
+import { FormFieldFactoryComponent } from '../../components/form-field-factory/form-field-factory.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-form-submit',
   standalone: true,
-  imports: [],
+  imports: [
+    CardModule,
+    CommonModule,
+    FormFieldFactoryComponent,
+    InputTextModule,
+  ],
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',
 })
 export class FormSubmitComponent {
-  title = '';
+  form: Form | null = null;
 
   constructor(
     private formService: FormService,
@@ -24,8 +34,11 @@ export class FormSubmitComponent {
   }
 
   getSubmitForm(id: string): void {
-    this.formService.getForm(id).subscribe((data) => {
-      console.log(data);
+    this.formService.getForm(id).subscribe((res) => {
+      console.log(res);
+      if (res && res?.data) {
+        this.form = res.data;
+      }
     });
   }
 }

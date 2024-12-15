@@ -1,0 +1,7 @@
+<main *ngIf="form != null">
+  <p-card [header]="form.title">
+    <p class="m-0">{{ form.description }}</p>
+    <app-form-field-factory [formFields]="form.formFields">
+    </app-form-field-factory>
+  </p-card>
+</main>
