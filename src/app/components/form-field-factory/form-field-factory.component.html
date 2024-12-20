@@ -2,5 +2,6 @@
   <app-field-input
     *ngIf="item.fieldType == 'input'"
     [formField]="item"
+    (myOnChangeCallBack)="handleOnChangeCallback($event)"
   ></app-field-input>
 </div>

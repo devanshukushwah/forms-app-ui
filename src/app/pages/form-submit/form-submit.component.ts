@@ -8,6 +8,10 @@ import { FormFieldFactoryComponent } from '../../components/form-field-factory/f
 import { InputTextModule } from 'primeng/inputtext';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
+import { FormField } from '../../common/interface/FormField';
+import { FieldInput } from '../../common/interface/FieldInput';
+import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
+import { FormSubmit } from '../../common/interface/FormSubmit';
 
 @Component({
   selector: 'app-form-submit',
@@ -25,6 +29,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class FormSubmitComponent {
   form: Form | null = null;
+  userResponse: FormFieldAnswer[] = [];
 
   constructor(
     private formService: FormService,
@@ -39,10 +44,42 @@ export class FormSubmitComponent {
 
   getSubmitForm(id: string): void {
     this.formService.getForm(id).subscribe((res) => {
-      console.log(res);
       if (res && res?.data) {
         this.form = res.data;
       }
+    });
+  }
+
+  handleOnChangeCallback(obj: any): void {
+    const field = this.userResponse.find(
+      (item) => item.fieldId === obj.fieldId
+    );
+
+    if (obj && obj.fieldType === 'input') {
+      if (field) {
+        field.value = obj.value;
+      } else {
+        const newField: FormFieldAnswer = {
+          fieldId: obj.fieldId,
+          attrId: obj.attrId,
+          value: obj.value,
+        };
+        this.userResponse.push(newField);
+      }
+    }
+  }
+
+  handleSubmitForm(): void {
+    if (!this.form?.formId) {
+      return;
+    }
+
+    const formSubmit: FormSubmit = {
+      answers: this.userResponse,
+      formId: this.form.formId,
+    };
+    this.formService.submitForm(formSubmit).subscribe((res) => {
+      alert('success');
     });
   }
 }

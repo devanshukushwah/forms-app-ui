@@ -1,5 +1,5 @@
 export interface FieldAttribute {
-  id: number;
+  attrId: number;
   attr: string;
   value: string;
   sqc: number | undefined | null;

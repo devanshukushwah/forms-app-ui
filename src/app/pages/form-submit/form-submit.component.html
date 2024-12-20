@@ -2,11 +2,14 @@
   <p-card [header]="form.title">
     <p class="m-0">{{ form.description }}</p>
     <br />
-    <app-form-field-factory [formFields]="form.formFields">
+    <app-form-field-factory
+      [formFields]="form.formFields"
+      (myOnChangeCallback)="handleOnChangeCallback($event)"
+    >
     </app-form-field-factory>
     <br />
     <div class="d-flex j-end a-center">
-      <p-button label="Submit" />
+      <p-button label="Submit" (onClick)="handleSubmitForm()" />
     </div>
   </p-card>
 </main>

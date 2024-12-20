@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormField } from '../../common/interface/FormField';
 import { FieldInputComponent } from '../field-input/field-input.component';
 import { CommonModule } from '@angular/common';
@@ -12,4 +12,10 @@ import { CommonModule } from '@angular/common';
 })
 export class FormFieldFactoryComponent {
   @Input() formFields: FormField[] = [];
+
+  @Output() myOnChangeCallback = new EventEmitter<any>();
+
+  handleOnChangeCallback(obj: any): void {
+    this.myOnChangeCallback.emit(obj);
+  }
 }

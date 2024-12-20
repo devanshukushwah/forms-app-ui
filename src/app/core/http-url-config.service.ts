@@ -8,7 +8,11 @@ export class HttpUrlConfigService {
 
   constructor() {}
 
-  getForm(id: string): string {
-    return `${this.baseUrl}/api/v1/forms/${id}`;
+  getForm(formId: string): string {
+    return `${this.baseUrl}/api/v1/forms/${formId}`;
+  }
+
+  submitForm(formId: string): string {
+    return `${this.baseUrl}/api/v1/forms/${formId}/submits`;
   }
 }

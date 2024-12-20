@@ -1,2 +1,9 @@
-<p>{{ fieldInput?.title }}</p>
-<input type="text" pInputText class="w-max" size="small" />
+<p>{{ fieldInput.title }}</p>
+<input
+  type="text"
+  pInputText
+  class="w-max"
+  size="small"
+  [(ngModel)]="fieldInput.value"
+  (input)="handleInputChange()"
+/>
