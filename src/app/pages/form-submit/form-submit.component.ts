@@ -12,6 +12,7 @@ import { FormField } from '../../common/interface/FormField';
 import { FieldInput } from '../../common/interface/FieldInput';
 import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
 import { FormSubmit } from '../../common/interface/FormSubmit';
+import { KeycloakService } from '../../services/keycloak.service';
 
 @Component({
   selector: 'app-form-submit',
@@ -33,7 +34,8 @@ export class FormSubmitComponent {
 
   constructor(
     private formService: FormService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private keycloakService: KeycloakService
   ) {
     const paramId = this.activeRoute.snapshot.paramMap.get('formId');
 
@@ -69,7 +71,7 @@ export class FormSubmitComponent {
     }
   }
 
-  handleSubmitForm(): void {
+  async handleSubmitForm(): Promise<void> {
     if (!this.form?.formId) {
       return;
     }
@@ -82,9 +84,15 @@ export class FormSubmitComponent {
     const formSubmit: FormSubmit = {
       answers: this.userResponse,
       formId: this.form.formId,
+      email: await this.fetchEmail(),
     };
     this.formService.submitForm(formSubmit).subscribe((res) => {
       alert('success');
     });
+  }
+
+  async fetchEmail(): Promise<string | null | undefined> {
+    const profile = await this.keycloakService.loadUserProfile();
+    return profile.email;
   }
 }
