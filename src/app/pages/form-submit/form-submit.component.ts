@@ -35,7 +35,7 @@ export class FormSubmitComponent {
     private formService: FormService,
     private activeRoute: ActivatedRoute
   ) {
-    const paramId = this.activeRoute.snapshot.paramMap.get('id');
+    const paramId = this.activeRoute.snapshot.paramMap.get('formId');
 
     if (paramId) {
       this.getSubmitForm(paramId);
@@ -71,6 +71,11 @@ export class FormSubmitComponent {
 
   handleSubmitForm(): void {
     if (!this.form?.formId) {
+      return;
+    }
+
+    if (this.userResponse.length == 0) {
+      alert('please fill form details');
       return;
     }
 
