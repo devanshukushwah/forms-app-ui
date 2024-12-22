@@ -2,6 +2,7 @@
   <app-field-input
     *ngIf="item.fieldType == 'input'"
     [formField]="item"
+    [respFormGroup]="respFormGroup"
     (myOnChangeCallBack)="handleOnChangeCallback($event)"
   ></app-field-input>
 </div>

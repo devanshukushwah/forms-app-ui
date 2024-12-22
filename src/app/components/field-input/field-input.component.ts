@@ -2,18 +2,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormField } from '../../common/interface/FormField';
 import { FieldInput } from '../../common/interface/FieldInput';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-field-input',
   standalone: true,
-  imports: [InputTextModule, FormsModule],
+  imports: [InputTextModule, FormsModule, ReactiveFormsModule],
   templateUrl: './field-input.component.html',
   styleUrl: './field-input.component.scss',
 })
 export class FieldInputComponent implements OnInit {
   @Input() formField: FormField | undefined;
   fieldInput!: FieldInput;
+  @Input() respFormGroup!: FormGroup;
 
   @Output() myOnChangeCallBack = new EventEmitter<any>();
 
@@ -40,5 +41,13 @@ export class FieldInputComponent implements OnInit {
 
   handleInputChange(): void {
     this.myOnChangeCallBack.emit(this.fieldInput);
+  }
+
+  getString(obj: any): string {
+    if (obj) {
+      return obj.toString();
+    }
+
+    return '';
   }
 }

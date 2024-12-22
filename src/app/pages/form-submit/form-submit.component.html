@@ -2,14 +2,17 @@
   <p-card [header]="form.title">
     <p class="m-0">{{ form.description }}</p>
     <br />
-    <app-form-field-factory
-      [formFields]="form.formFields"
-      (myOnChangeCallback)="handleOnChangeCallback($event)"
-    >
-    </app-form-field-factory>
-    <br />
-    <div class="d-flex j-end a-center">
-      <p-button label="Submit" (onClick)="handleSubmitForm()" />
-    </div>
+    <form [formGroup]="resformGroup">
+      <app-form-field-factory
+        [formFields]="form.formFields"
+        [respFormGroup]="resformGroup"
+        (myOnChangeCallback)="handleOnChangeCallback($event)"
+      >
+      </app-form-field-factory>
+      <br />
+      <div class="d-flex j-end a-center">
+        <p-button type="submit" label="Submit" (onClick)="handleSubmitForm()" />
+      </div>
+    </form>
   </p-card>
 </main>
