@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormField } from '../../common/interface/FormField';
 import { FieldInputComponent } from '../field-input/field-input.component';
 import { CommonModule } from '@angular/common';
@@ -14,10 +14,4 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class FormFieldFactoryComponent {
   @Input() formFields: FormField[] = [];
   @Input() respFormGroup!: FormGroup;
-
-  @Output() myOnChangeCallback = new EventEmitter<any>();
-
-  handleOnChangeCallback(obj: any): void {
-    this.myOnChangeCallback.emit(obj);
-  }
 }

@@ -56,24 +56,6 @@ export class FormSubmitComponent {
     }
   }
 
-  handleOnChangeCallback(obj: any): void {
-    // const field = this.userResponse.find(
-    //   (item) => item.fieldId === obj.fieldId
-    // );
-    // if (obj && obj.fieldType === 'input') {
-    //   if (field) {
-    //     field.value = obj.value;
-    //   } else {
-    //     const newField: FormFieldAnswer = {
-    //       fieldId: obj.fieldId,
-    //       attrId: obj.attrId,
-    //       value: obj.value,
-    //     };
-    //     this.userResponse.push(newField);
-    //   }
-    // }
-  }
-
   async handleSubmitForm(): Promise<void> {
     if (!this.form?.formId) {
       return;
