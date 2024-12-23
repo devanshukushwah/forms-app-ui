@@ -20,4 +20,8 @@ export class FormService {
   submitForm(body: FormSubmit): Observable<any> {
     return this.http.post(this.httpUrlConfig.submitForm(body.formId), body);
   }
+
+  getAdminForms(): Observable<any> {
+    return this.http.get(this.httpUrlConfig.getAdminForms());
+  }
 }

@@ -2,6 +2,11 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
+body {
+  padding: 0;
+  margin: 0;
+}
+
 .w-max {
   min-width: 100%;
 }
@@ -16,4 +21,13 @@
 
 .a-center {
   align-items: center;
+}
+
+:root {
+  --color-black: black;
+  --global-size: 1rem;
+}
+
+.container {
+  padding: var(--global-size);
 }

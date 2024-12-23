@@ -12,6 +12,10 @@ export class HttpUrlConfigService {
     return `${this.baseUrl}/api/v1/forms/${formId}`;
   }
 
+  getAdminForms(): string {
+    return `${this.baseUrl}/api/v1/forms`;
+  }
+
   submitForm(formId: string): string {
     return `${this.baseUrl}/api/v1/forms/${formId}/submits`;
   }

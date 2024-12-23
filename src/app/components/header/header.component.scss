@@ -1,0 +1,12 @@
+header {
+  height: 50px;
+  padding: var(--global-size);
+  background-color: var(--primary-color);
+  margin: 0 !important;
+}
+
+.brand {
+  .text {
+    color: var(--primary-color-text);
+  }
+}

@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormFieldFactoryComponent } from './components/form-field-factory/form-field-factory.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
