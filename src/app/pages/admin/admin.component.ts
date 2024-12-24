@@ -29,8 +29,8 @@ export class AdminComponent {
 
   getAdminForms(): Form[] {
     this.formService.getAdminForms().subscribe((res) => {
-      if (res && res?.data) {
-        this.forms = res.data;
+      if (res && res?.data && res?.data?.content) {
+        this.forms = res.data.content;
       }
     });
 
