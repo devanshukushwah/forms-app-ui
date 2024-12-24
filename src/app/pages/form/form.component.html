@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container mw-800px m-auto">
   <p-card header="Basic Details">
-    <form [formGroup]="basicDetails" (submit)="handleBasicDetailSubmit()">
+    <form [formGroup]="basicDetails">
       <input
         type="text"
         pInputText
@@ -26,6 +26,7 @@
         label="Create Form"
         size="small"
         (onClick)="handleBasicDetailSubmit()"
+        [disabled]="basicDetails.invalid"
       />
     </p-footer>
   </p-card>

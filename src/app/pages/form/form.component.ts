@@ -6,7 +6,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormService } from '../../services/form.service';
 import { Form } from '../../common/interface/Form';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -27,16 +32,19 @@ export class FormComponent {
 
   constructor(private formService: FormService) {
     this.basicDetails = new FormGroup({
-      title: new FormControl(''),
-      description: new FormControl(''),
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
     });
   }
 
   handleBasicDetailSubmit(): void {
     const form: Form = this.basicDetails.value;
-
     this.formService.addForm(form).subscribe((res) => {
-      console.log(res);
+      this.resetBasicDetailForm();
     });
+  }
+
+  resetBasicDetailForm(): void {
+    this.basicDetails.reset();
   }
 }
