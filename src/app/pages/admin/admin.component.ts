@@ -4,11 +4,19 @@ import { FormService } from '../../services/form.service';
 import { Form } from '../../common/interface/Form';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [HeaderComponent, TableModule, CommonModule],
+  imports: [
+    HeaderComponent,
+    TableModule,
+    CommonModule,
+    ButtonModule,
+    DialogModule,
+  ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })

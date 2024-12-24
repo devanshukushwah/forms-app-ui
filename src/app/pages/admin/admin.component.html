@@ -1,5 +1,10 @@
 <app-header></app-header>
+
 <div class="container">
+  <div class="d-flex j-end pb-1">
+    <p-button label="Create Form" [outlined]="true" size="small" />
+  </div>
+  <div class="space-h"></div>
   <p-table [value]="forms">
     <ng-template pTemplate="header">
       <tr>
@@ -10,7 +15,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-response>
       <tr>
-        <!-- <td>{{ response.formId }}</td> -->
         <td>
           <a [href]="response.formId" target="_blank" rel="noopener noreferrer">
             {{ response.formId }}

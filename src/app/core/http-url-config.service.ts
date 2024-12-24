@@ -23,4 +23,8 @@ export class HttpUrlConfigService {
   getResponses(formId: string): string {
     return `${this.baseUrl}/api/v1/responses/${formId}`;
   }
+
+  addForm(): string {
+    return `${this.baseUrl}/api/v1/forms`;
+  }
 }

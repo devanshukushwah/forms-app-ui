@@ -7,8 +7,17 @@ body {
   margin: 0;
 }
 
-.w-max {
+.w-max,
+.w-full {
   min-width: 100%;
+}
+
+.mw-800px {
+  max-width: 800px;
+}
+
+.m-auto {
+  margin: 0 auto;
 }
 
 .d-flex {
@@ -30,4 +39,16 @@ body {
 
 .container {
   padding: var(--global-size);
+}
+
+.space-h {
+  height: var(--global-size);
+}
+
+.pb-1 {
+  padding-bottom: var(--global-size);
+}
+
+.gap {
+  gap: var(--global-size);
 }

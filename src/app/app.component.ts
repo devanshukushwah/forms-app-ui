@@ -7,6 +7,8 @@ import { FormFieldFactoryComponent } from './components/form-field-factory/form-
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from './components/header/header.component';
+import { DialogModule } from 'primeng/dialog';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,7 @@ import { HeaderComponent } from './components/header/header.component';
     HttpClientModule,
     InputTextModule,
     ButtonModule,
+    FormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

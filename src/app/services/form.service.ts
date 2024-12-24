@@ -3,6 +3,7 @@ import { HttpUrlConfigService } from '../core/http-url-config.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormSubmit } from '../common/interface/FormSubmit';
+import { Form } from '../common/interface/Form';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +24,9 @@ export class FormService {
 
   getAdminForms(): Observable<any> {
     return this.http.get(this.httpUrlConfig.getAdminForms());
+  }
+
+  addForm(form: Form): Observable<any> {
+    return this.http.post(this.httpUrlConfig.addForm(), form);
   }
 }

@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div class="container mw-800px m-auto">
+  <p-card header="Basic Details">
+    <form [formGroup]="basicDetails" (submit)="handleBasicDetailSubmit()">
+      <input
+        type="text"
+        pInputText
+        formControlName="title"
+        class="w-full"
+        placeholder="Please enter title..."
+      />
+      <div class="space-h"></div>
+      <textarea
+        rows="5"
+        cols="30"
+        formControlName="description"
+        pInputTextarea
+        [autoResize]="true"
+        placeholder="Please enter description..."
+        class="w-full"
+      ></textarea>
+    </form>
+    <p-footer class="d-flex j-end gap">
+      <p-button label="Cancel" severity="secondary" size="small" />
+      <p-button
+        label="Create Form"
+        size="small"
+        (onClick)="handleBasicDetailSubmit()"
+      />
+    </p-footer>
+  </p-card>
+</div>
