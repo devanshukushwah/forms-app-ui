@@ -15,11 +15,13 @@ export const routes: Routes = [
     path: 'form',
     component: FormComponent,
     canActivate: [AuthGuard],
+    data: { isCreate: true },
   },
   {
     path: 'form/:formId',
     component: FormComponent,
     canActivate: [AuthGuard],
+    data: { isUpdate: true },
   },
   { path: ':formId', component: FormSubmitComponent },
   {

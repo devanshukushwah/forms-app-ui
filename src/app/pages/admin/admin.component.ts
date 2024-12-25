@@ -6,6 +6,7 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { NavigateService } from '../../core/navigate.service';
 
 @Component({
   selector: 'app-admin',
@@ -23,7 +24,10 @@ import { DialogModule } from 'primeng/dialog';
 export class AdminComponent {
   forms: Form[];
 
-  constructor(private formService: FormService) {
+  constructor(
+    private formService: FormService,
+    public navigateService: NavigateService
+  ) {
     this.forms = this.getAdminForms();
   }
 

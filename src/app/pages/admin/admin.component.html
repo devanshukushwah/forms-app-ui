@@ -2,7 +2,12 @@
 
 <div class="container">
   <div class="d-flex j-end pb-1">
-    <p-button label="Create Form" [outlined]="true" size="small" />
+    <p-button
+      label="Create Form"
+      [outlined]="true"
+      size="small"
+      (onClick)="navigateService.navigateToForm()"
+    />
   </div>
   <div class="space-h"></div>
   <p-table [value]="forms">

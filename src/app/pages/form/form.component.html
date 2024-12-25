@@ -23,7 +23,15 @@
     <p-footer class="d-flex j-end gap">
       <p-button label="Cancel" severity="secondary" size="small" />
       <p-button
+        *ngIf="isCreate === true"
         label="Create Form"
+        size="small"
+        (onClick)="handleBasicDetailSubmit()"
+        [disabled]="basicDetails.invalid"
+      />
+      <p-button
+        *ngIf="isUpdate === true"
+        label="Update Basic Details"
         size="small"
         (onClick)="handleBasicDetailSubmit()"
         [disabled]="basicDetails.invalid"
