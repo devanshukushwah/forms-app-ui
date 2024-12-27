@@ -1,0 +1,23 @@
+<p-card>
+  <form [formGroup]="formGroup">
+    <input
+      type="text"
+      pInputText
+      class="w-max"
+      size="small"
+      formControlName="title"
+    />
+  </form>
+  <p-footer class="d-flex j-end gap">
+    <p-button
+      [label]="formField.fieldId >= 1 ? 'Update' : 'Create'"
+      size="small"
+      (onClick)="handleSave()"
+      [disabled]="
+        formGroup.invalid ||
+        !formGroup.dirty ||
+        formGroup.get('title')?.value === title
+      "
+    />
+  </p-footer>
+</p-card>

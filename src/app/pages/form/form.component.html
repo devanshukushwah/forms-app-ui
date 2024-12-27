@@ -21,7 +21,12 @@
       ></textarea>
     </form>
     <p-footer class="d-flex j-end gap">
-      <p-button label="Cancel" severity="secondary" size="small" />
+      <p-button
+        label="Go to Admin"
+        severity="secondary"
+        size="small"
+        (onClick)="navigateService.navigateToAdmin()"
+      />
       <p-button
         *ngIf="isCreate === true"
         label="Create Form"
@@ -38,4 +43,11 @@
       />
     </p-footer>
   </p-card>
+  <app-form-field-edit-factory
+    [formFields]="formFields"
+  ></app-form-field-edit-factory>
+  <ng-container *ngIf="isUpdate === true">
+    <div class="space-h"></div>
+    <app-card-add-button (click)="handleAddCardButton()"></app-card-add-button>
+  </ng-container>
 </div>

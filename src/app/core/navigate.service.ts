@@ -8,10 +8,14 @@ export class NavigateService {
   constructor(private router: Router) {}
 
   navigateToForm(): void {
-    this.router.navigate(['/form']);
+    this.router.navigate(['/create']);
   }
 
   navigateToFormByFormId(formId: string): void {
-    this.router.navigate([`/form/${formId}`]);
+    this.router.navigate([`/edit/${formId}`]);
+  }
+
+  navigateToAdmin(): void {
+    this.router.navigate(['/admin']);
   }
 }

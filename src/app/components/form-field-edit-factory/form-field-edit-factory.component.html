@@ -1,0 +1,6 @@
+<div *ngFor="let item of formFields" style="margin-top: var(--global-size)">
+  <app-field-input-edit
+    *ngIf="item.fieldType == 'input'"
+    [formField]="item"
+  ></app-field-input-edit>
+</div>

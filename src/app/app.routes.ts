@@ -12,13 +12,13 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'form',
+    path: 'create',
     component: FormComponent,
     canActivate: [AuthGuard],
     data: { isCreate: true },
   },
   {
-    path: 'form/:formId',
+    path: 'edit/:formId',
     component: FormComponent,
     canActivate: [AuthGuard],
     data: { isUpdate: true },
