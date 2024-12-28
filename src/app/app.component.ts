@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from './components/header/header.component';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     InputTextModule,
     ButtonModule,
     FormsModule,
+    ToastModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

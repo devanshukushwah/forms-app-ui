@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
+import { NavigateService } from '../../core/navigate.service';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,6 @@ import { ToolbarModule } from 'primeng/toolbar';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  constructor(public navigateService: NavigateService) {}
+}
