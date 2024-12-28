@@ -29,4 +29,8 @@ export class FormService {
   addForm(form: Form): Observable<any> {
     return this.http.post(this.httpUrlConfig.addForm(), form);
   }
+
+  putForm(formId: string, form: Form): Observable<any> {
+    return this.http.put(this.httpUrlConfig.putForm(formId), form);
+  }
 }

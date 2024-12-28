@@ -32,14 +32,14 @@
         label="Create Form"
         size="small"
         (onClick)="handleBasicDetailSubmit()"
-        [disabled]="basicDetails.invalid"
+        [disabled]="basicDetails.invalid || !basicDetails.dirty"
       />
       <p-button
         *ngIf="isUpdate === true"
         label="Update Basic Details"
         size="small"
-        (onClick)="handleBasicDetailSubmit()"
-        [disabled]="basicDetails.invalid"
+        (onClick)="handleEditBasicDetailSubmit()"
+        [disabled]="basicDetails.invalid || !basicDetails.dirty"
       />
     </p-footer>
   </p-card>

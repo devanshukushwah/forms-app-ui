@@ -94,9 +94,23 @@ export class FormComponent {
     this.formService.addForm(form).subscribe((res: ResponseModel<string>) => {
       this.resetBasicDetailForm();
       if (res && res.success) {
-        this.navigateService.navigateToFormByFormId(res.data);
+        this.navigateService.navigateToFormEdit(res.data);
       }
     });
+  }
+
+  handleEditBasicDetailSubmit(): void {
+    const form: Form = this.basicDetails.value;
+    this.formService
+      .putForm(this.formId, form)
+      .subscribe((res: ResponseModel<Form>) => {
+        if (res && res.success) {
+          this.navigateService.navigateToFormEdit(res.data.formId);
+          this.basicDetails.markAsPristine(); // Mark form as pristine
+          this.basicDetails.markAsUntouched(); // Mark form as untouched
+          this.basicDetails.updateValueAndValidity(); // Update form validity
+        }
+      });
   }
 
   resetBasicDetailForm(): void {

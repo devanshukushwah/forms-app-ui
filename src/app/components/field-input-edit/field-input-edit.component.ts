@@ -59,7 +59,11 @@ export class FieldInputEditComponent implements OnInit {
           this.formField
         )
         .subscribe((res) => {
-          // console.log(res);
+          if (res.success) {
+            this.formGroup.markAsPristine(); // Mark form as pristine
+            this.formGroup.markAsUntouched(); // Mark form as untouched
+            this.formGroup.updateValueAndValidity(); // Update form validity
+          }
         });
     } else {
       this.formFieldService

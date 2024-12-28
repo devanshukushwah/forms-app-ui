@@ -13,11 +13,7 @@
       [label]="formField.fieldId >= 1 ? 'Update' : 'Create'"
       size="small"
       (onClick)="handleSave()"
-      [disabled]="
-        formGroup.invalid ||
-        !formGroup.dirty ||
-        formGroup.get('title')?.value === title
-      "
+      [disabled]="formGroup.invalid || !formGroup.dirty"
     />
   </p-footer>
 </p-card>

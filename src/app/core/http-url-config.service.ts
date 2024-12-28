@@ -28,6 +28,10 @@ export class HttpUrlConfigService {
     return `${this.baseUrl}/api/v1/forms`;
   }
 
+  putForm(formId: string): string {
+    return `${this.baseUrl}/api/v1/forms/${formId}`;
+  }
+
   putFormField(formId: string, fieldId: number): string {
     return `${this.baseUrl}/api/v1/forms/${formId}/formFields/${fieldId}`;
   }

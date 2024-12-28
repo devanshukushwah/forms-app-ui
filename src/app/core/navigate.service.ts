@@ -11,7 +11,7 @@ export class NavigateService {
     this.router.navigate(['/create']);
   }
 
-  navigateToFormByFormId(formId: string): void {
+  navigateToFormEdit(formId: string): void {
     this.router.navigate([`/edit/${formId}`]);
   }
 
