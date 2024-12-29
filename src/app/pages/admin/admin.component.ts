@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { NavigateService } from '../../core/navigate.service';
+import { LabelExternalLinkComponent } from '../../components/label-external-link/label-external-link.component';
 
 @Component({
   selector: 'app-admin',
@@ -17,6 +18,7 @@ import { NavigateService } from '../../core/navigate.service';
     CommonModule,
     ButtonModule,
     DialogModule,
+    LabelExternalLinkComponent,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',

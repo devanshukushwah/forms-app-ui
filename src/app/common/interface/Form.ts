@@ -6,4 +6,5 @@ export interface Form {
   description: string;
   formFields: FormField[];
   createdDate?: Date;
+  submitsCount?: number | null;
 }

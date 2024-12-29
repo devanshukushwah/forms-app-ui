@@ -16,6 +16,7 @@
         <th>Form Id</th>
         <th>Title</th>
         <th>Created Date</th>
+        <th>Response</th>
         <th>Actions</th>
       </tr>
     </ng-template>
@@ -28,6 +29,13 @@
         </td>
         <td>{{ response.title }}</td>
         <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
+        <td>
+          <app-label-external-link
+            [label]="response.submitsCount"
+            [link]="'responses/' + response.formId"
+            [textForNullValue]="0"
+          ></app-label-external-link>
+        </td>
         <td>
           <p-button
             icon="pi pi-pencil"

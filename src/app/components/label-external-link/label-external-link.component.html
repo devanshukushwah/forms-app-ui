@@ -1,0 +1,8 @@
+<td *ngIf="label != null">
+  {{ label }}
+  &nbsp;
+  <a [href]="link" target="_blank" rel="noopener noreferrer">
+    <i class="pi pi-external-link" style="font-size: 0.8rem"></i>
+  </a>
+</td>
+<td *ngIf="label == null">{{ textForNullValue }}</td>
