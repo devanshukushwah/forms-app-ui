@@ -1,4 +1,4 @@
-import { FormField } from './FormField';
+import { Form } from './Form';
 import { FormSubmit } from './FormSubmit';
 
 export interface FormAndSubmit {
