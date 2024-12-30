@@ -9,7 +9,13 @@
     </ng-template>
     <ng-template pTemplate="body" let-response>
       <tr>
-        <td>{{ response.subId }}</td>
+        <td>
+          <app-label-external-link
+            [label]="response.subId"
+            [link]="'submission/' + response.subId"
+            textForNullValue="submission not found"
+          ></app-label-external-link>
+        </td>
         <td>{{ response.email || "Anonymous" }}</td>
       </tr>
     </ng-template>

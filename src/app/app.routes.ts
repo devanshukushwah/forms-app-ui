@@ -4,6 +4,7 @@ import { FormResponsesComponent } from './pages/form-responses/form-responses.co
 import { AuthGuard } from './gaurds/AuthGaurds';
 import { AdminComponent } from './pages/admin/admin.component';
 import { FormComponent } from './pages/form/form.component';
+import { FormSubmissionComponent } from './pages/form-submission/form-submission.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,11 @@ export const routes: Routes = [
   {
     path: 'responses/:formId',
     component: FormResponsesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'submission/:subId',
+    component: FormSubmissionComponent,
     canActivate: [AuthGuard],
   },
 ];

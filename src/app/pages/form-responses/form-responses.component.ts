@@ -5,11 +5,12 @@ import { ResponsesService } from '../../services/responses.service';
 import { FormResponse } from '../../common/interface/FormResponse';
 import { TableModule } from 'primeng/table';
 import { HeaderComponent } from '../../components/header/header.component';
+import { LabelExternalLinkComponent } from '../../components/label-external-link/label-external-link.component';
 
 @Component({
   selector: 'app-form-responses',
   standalone: true,
-  imports: [TableModule, HeaderComponent],
+  imports: [TableModule, HeaderComponent, LabelExternalLinkComponent],
   templateUrl: './form-responses.component.html',
   styleUrl: './form-responses.component.scss',
 })

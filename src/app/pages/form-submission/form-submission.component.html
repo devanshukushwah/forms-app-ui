@@ -1,0 +1,14 @@
+<app-header></app-header>
+<main *ngIf="form != null" class="form-container">
+  <p-card [header]="form.title">
+    <p class="m-0">{{ form.description }}</p>
+    <br />
+    <form [formGroup]="resformGroup">
+      <app-form-field-factory
+        [formFields]="form.formFields"
+        [respFormGroup]="resformGroup"
+      >
+      </app-form-field-factory>
+    </form>
+  </p-card>
+</main>
