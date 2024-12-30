@@ -5,6 +5,7 @@
       <tr>
         <th>Submit ID</th>
         <th>Email</th>
+        <th>Submitted At</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-response>
@@ -17,6 +18,7 @@
           ></app-label-external-link>
         </td>
         <td>{{ response.email || "Anonymous" }}</td>
+        <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
       </tr>
     </ng-template>
   </p-table>
