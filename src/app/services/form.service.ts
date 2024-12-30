@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormSubmit } from '../common/interface/FormSubmit';
 import { Form } from '../common/interface/Form';
+import { PageRequest } from '../common/interface/PageRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +23,8 @@ export class FormService {
     return this.http.post(this.httpUrlConfig.submitForm(body.formId), body);
   }
 
-  getAdminForms(): Observable<any> {
-    return this.http.get(this.httpUrlConfig.getAdminForms());
+  getAdminForms(pageRequest: PageRequest): Observable<any> {
+    return this.http.get(this.httpUrlConfig.getAdminForms(pageRequest));
   }
 
   addForm(form: Form): Observable<any> {

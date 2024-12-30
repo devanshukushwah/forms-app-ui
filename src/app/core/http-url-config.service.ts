@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PageRequest } from '../common/interface/PageRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,10 @@ export class HttpUrlConfigService {
     return `${this.baseUrl}/api/v1/forms/${formId}`;
   }
 
-  getAdminForms(): string {
-    return `${this.baseUrl}/api/v1/forms`;
+  getAdminForms(pageRequest: PageRequest): string {
+    const { page, size } = pageRequest;
+    return `${this.baseUrl}/api/v1/forms?page=${page}&size=${size}`;
+    // return `${this.baseUrl}/api/v1/forms`;
   }
 
   submitForm(formId: string): string {

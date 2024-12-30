@@ -10,7 +10,20 @@
     />
   </div>
   <div class="space-h"></div>
-  <p-table [value]="forms">
+  <p-table
+    [styleClass]="'p-datatable-sm'"
+    [value]="forms"
+    [paginator]="true"
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    (onPage)="onPageChange($event)"
+    [loading]="loading"
+    [lazy]="true"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}
+    entries"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th>Form Id</th>
