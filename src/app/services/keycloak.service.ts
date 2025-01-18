@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Keycloak from 'keycloak-js';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export class KeycloakService {
 
   constructor() {
     this.keycloak = new Keycloak({
-      url: 'http://localhost:8080',
+      url: environment.keycloakURL,
       realm: 'makeitcoder',
       clientId: 'public-client-forms-app',
     });

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { PageRequest } from '../common/interface/PageRequest';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpUrlConfigService {
-  baseUrl: string = 'http://localhost:9080';
+  baseUrl: string | undefined = environment.apiURL;
 
   constructor() {}
 
