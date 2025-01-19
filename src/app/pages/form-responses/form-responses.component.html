@@ -1,6 +1,17 @@
 <app-header></app-header>
 <div class="container">
-  <p-table [value]="formResponses.responses">
+  <p-table
+    [value]="formSubmits"
+    [paginator]="true"
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    (onPage)="onPageChange($event)"
+    [loading]="loading"
+    [lazy]="true"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th>Submit ID</th>
