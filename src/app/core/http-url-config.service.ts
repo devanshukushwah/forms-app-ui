@@ -21,7 +21,7 @@ export class HttpUrlConfigService {
   }
 
   submitForm(formId: string): string {
-    return `${this.baseUrl}/api/v1/submits/formId/${formId}`;
+    return `${this.baseUrl}/api/v2/submits/formId/${formId}`;
   }
 
   getResponses(formId: string, pageRequest: PageRequest): string {
