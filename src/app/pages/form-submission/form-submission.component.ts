@@ -30,7 +30,7 @@ import { FormAndSubmit } from '../../common/interface/FormAndSubmit';
   styleUrl: './form-submission.component.scss',
 })
 export class FormSubmissionComponent {
-  subId: number = 0;
+  subId: string = '';
   form!: Form;
   resformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
 
@@ -41,7 +41,7 @@ export class FormSubmissionComponent {
   ) {
     const paramId = this.activeRoute.snapshot.paramMap.get('subId');
     if (paramId) {
-      this.subId = Number.parseInt(paramId, 10);
+      this.subId = paramId;
 
       this.formSubmitService
         .getFormSubmission(this.subId)

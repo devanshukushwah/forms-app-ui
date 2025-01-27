@@ -12,7 +12,7 @@ export class FormSubmitService {
     private http: HttpClient
   ) {}
 
-  getFormSubmission(subId: number): Observable<any> {
+  getFormSubmission(subId: string): Observable<any> {
     return this.http.get(this.httpUrlConfig.getFormSubmission(subId));
   }
 }

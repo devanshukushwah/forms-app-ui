@@ -45,7 +45,7 @@ export class HttpUrlConfigService {
     return `${this.baseUrl}/api/v1/forms/${formId}/formFields`;
   }
 
-  getFormSubmission(subId: number): string {
+  getFormSubmission(subId: string): string {
     return `${this.baseUrl}/api/v1/form-submit/${subId}`;
   }
 }
