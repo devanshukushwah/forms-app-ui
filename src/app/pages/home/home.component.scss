@@ -1,0 +1,47 @@
+header,
+.hero,
+.our-clients,
+.forms-count,
+.pricing,
+.testimonials,
+footer {
+  padding: 0 calc(var(--global-size) * 4);
+}
+
+header {
+  height: 55px;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  display: flex;
+  gap: calc(var(--global-size) * 0.5);
+  p {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+.hero {
+  background-color: #f5f7fa;
+  height: 60vh;
+}
+
+.container-gap {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.testimonials {
+  background-color: #f5f7fa;
+}
+
+footer {
+  background-color: #263238;
+
+  .brand-logo {
+    color: white;
+  }
+}
