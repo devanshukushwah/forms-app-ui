@@ -36,9 +36,8 @@
     <ng-template pTemplate="body" let-response>
       <tr>
         <td>
-          <a [href]="response.formId" target="_blank" rel="noopener noreferrer">
-            {{ response.formId }}
-          </a>
+          <i class="pi pi-book" style="margin-right: var(--global-size)"></i>
+          {{ response.formId }}
         </td>
         <td>{{ response.title }}</td>
         <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
@@ -56,6 +55,14 @@
             [text]="true"
             size="small"
             (onClick)="navigateService.navigateToFormEdit(response.formId)"
+          />
+          <p-button
+            icon="pi pi-share-alt"
+            [rounded]="true"
+            [text]="true"
+            pBadge
+            value="2"
+            (onClick)="copyToClipboard(response.formId)"
           />
         </td>
       </tr>

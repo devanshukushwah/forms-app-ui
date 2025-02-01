@@ -10,6 +10,9 @@ import { NavigateService } from '../../core/navigate.service';
 import { LabelExternalLinkComponent } from '../../components/label-external-link/label-external-link.component';
 import { PageRequest } from '../../common/interface/PageRequest';
 import { first } from 'rxjs';
+import { BadgeModule } from 'primeng/badge';
+import { MessageService } from 'primeng/api';
+import { CopyClipboardService } from '../../core/copy-clipboard.service';
 
 @Component({
   selector: 'app-admin',
@@ -21,6 +24,7 @@ import { first } from 'rxjs';
     ButtonModule,
     DialogModule,
     LabelExternalLinkComponent,
+    BadgeModule,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
@@ -33,7 +37,9 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private formService: FormService,
-    public navigateService: NavigateService
+    public navigateService: NavigateService,
+    private copyClipboardService: CopyClipboardService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -58,5 +64,14 @@ export class AdminComponent implements OnInit {
     const { first, rows } = event;
     const page = first / rows; // Calculate page number (0-based)
     this.getAdminForms(page, rows);
+  }
+
+  copyToClipboard(formId: string): void {
+    this.copyClipboardService.copyShareFormLink(formId);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Share',
+      detail: 'Copied to clipboard',
+    });
   }
 }
