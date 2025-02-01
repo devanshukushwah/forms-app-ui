@@ -29,7 +29,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { isUpdate: true },
   },
-  { path: ':formId', component: FormSubmitComponent },
+  {
+    path: 'f/:formId',
+    component: FormSubmitComponent,
+  },
   {
     path: 'responses/:formId',
     component: FormResponsesComponent,
