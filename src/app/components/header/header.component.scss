@@ -1,22 +1,15 @@
 header {
-  height: 50px;
+  min-height: 50px;
   padding: var(--global-size);
   background-color: var(--primary-color);
   margin: 0 !important;
 
   display: flex;
   gap: var(--global-size);
+  align-items: center;
 }
 
-.brand {
-  .text {
-    color: var(--primary-color-text);
-  }
-}
-
-.navigation {
-  .text {
-    color: var(--primary-color-text);
-    cursor: pointer;
-  }
+header {
+  color: var(--primary-color-text);
+  cursor: pointer;
 }
