@@ -1,4 +1,4 @@
-<main *ngIf="form != null" class="form-container">
+<main *ngIf="form != null" class="form-container container">
   <p-card [header]="form.title">
     <p class="m-0">{{ form.description }}</p>
     <br />
@@ -14,4 +14,5 @@
       </div>
     </form>
   </p-card>
+  <app-mini-footer></app-mini-footer>
 </main>

@@ -9,7 +9,7 @@ header {
   align-items: center;
 }
 
-header {
+header > * {
   color: var(--primary-color-text);
   cursor: pointer;
 }

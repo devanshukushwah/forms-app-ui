@@ -1,0 +1,16 @@
+footer {
+  padding: calc(var(--global-size) / 2) 0;
+  display: flex;
+  justify-content: center;
+  font-size: small;
+  gap: calc(var(--global-size) / 4);
+  span {
+    text-align: center;
+    color: var(--text-color);
+    font-style: italic;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

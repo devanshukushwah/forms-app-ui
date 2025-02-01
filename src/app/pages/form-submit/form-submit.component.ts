@@ -14,6 +14,7 @@ import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
 import { FormSubmit } from '../../common/interface/FormSubmit';
 import { KeycloakService } from '../../services/keycloak.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MiniFooterComponent } from '../../components/mini-footer/mini-footer.component';
 
 @Component({
   selector: 'app-form-submit',
@@ -26,6 +27,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
     DividerModule,
     ButtonModule,
     ReactiveFormsModule,
+    MiniFooterComponent,
   ],
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',

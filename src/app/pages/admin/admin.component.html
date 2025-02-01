@@ -36,10 +36,14 @@
     <ng-template pTemplate="body" let-response>
       <tr>
         <td>
-          <i class="pi pi-book" style="margin-right: var(--global-size)"></i>
-          {{ response.formId }}
+          <div class="d-flex a-center gap">
+            <i class="pi pi-book"></i>
+            {{ response.formId }}
+          </div>
         </td>
-        <td>{{ response.title }}</td>
+        <td>
+          <p>{{ response.title }}</p>
+        </td>
         <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
         <td>
           <app-label-external-link
