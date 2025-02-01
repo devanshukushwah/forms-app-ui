@@ -9,6 +9,8 @@ import { LabelExternalLinkComponent } from '../../components/label-external-link
 import { CommonModule } from '@angular/common';
 import { PageRequest } from '../../common/interface/PageRequest';
 import { FormSubmit } from '../../common/interface/FormSubmit';
+import { ButtonModule } from 'primeng/button';
+import { NavigateService } from '../../core/navigate.service';
 
 @Component({
   selector: 'app-form-responses',
@@ -18,6 +20,7 @@ import { FormSubmit } from '../../common/interface/FormSubmit';
     HeaderComponent,
     LabelExternalLinkComponent,
     CommonModule,
+    ButtonModule,
   ],
   templateUrl: './form-responses.component.html',
   styleUrl: './form-responses.component.scss',
@@ -31,7 +34,8 @@ export class FormResponsesComponent implements OnInit {
 
   constructor(
     private responsesService: ResponsesService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private navigateService: NavigateService
   ) {
     this.formId = this.activeRoute.snapshot.paramMap.get('formId') || '';
   }
@@ -58,5 +62,11 @@ export class FormResponsesComponent implements OnInit {
     const { first, rows } = event;
     const page = first / rows; // Calculate page number (0-based)
     this.getResponses(this.formId, page, rows);
+  }
+
+  viewResponse(subId: string) {
+    // Redirect to response details page
+    // window.location.href = `/form-responses/${this.formId}/response/${subId}`;
+    this.navigateService.navigateToSubmission(subId);
   }
 }

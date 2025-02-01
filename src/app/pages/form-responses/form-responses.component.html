@@ -14,22 +14,30 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Submit ID</th>
         <th>Email</th>
         <th>Submitted At</th>
+        <th>Action</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-response>
       <tr>
+        <td>{{ response.email || "Anonymous" }}</td>
+        <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
         <td>
-          <app-label-external-link
+          <!-- <app-label-external-link
             [label]="response.subId"
             [link]="'submission/' + response.subId"
             textForNullValue="submission not found"
-          ></app-label-external-link>
+          ></app-label-external-link> -->
+          <p-button
+            size="small"
+            icon="pi pi-eye"
+            [rounded]="true"
+            [text]="true"
+            severity="info "
+            (onClick)="viewResponse(response.subId)"
+          />
         </td>
-        <td>{{ response.email || "Anonymous" }}</td>
-        <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
       </tr>
     </ng-template>
   </p-table>
