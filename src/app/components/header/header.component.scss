@@ -7,9 +7,9 @@ header {
   display: flex;
   gap: var(--global-size);
   align-items: center;
+  justify-content: space-between;
 }
 
 header > * {
   color: var(--primary-color-text);
-  cursor: pointer;
 }

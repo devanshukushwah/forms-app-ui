@@ -22,14 +22,15 @@
     </ng-template>
     <ng-template pTemplate="body" let-response>
       <tr>
-        <td>{{ response.email || "Anonymous" }}</td>
+        <td>
+          <div class="d-flex a-center gap">
+            <i class="pi pi-user"></i>
+            {{ response.email }}
+          </div>
+        </td>
+
         <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
         <td>
-          <!-- <app-label-external-link
-            [label]="response.subId"
-            [link]="'submission/' + response.subId"
-            textForNullValue="submission not found"
-          ></app-label-external-link> -->
           <p-button
             size="small"
             icon="pi pi-eye"

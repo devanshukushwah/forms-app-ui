@@ -5,5 +5,15 @@
       <b class="text" (click)="navigateService.navigateToAdmin()">Admin</b>
     </div> -->
   </div>
-  <div></div>
+  <div class="d-flex a-center gap">
+    <b>{{ firstLastname }}</b>
+    <p-button
+      icon="pi pi-sign-out"
+      [rounded]="true"
+      [raised]="true"
+      severity="info"
+      size="small"
+      (click)="keyCloakService.logout()"
+    />
+  </div>
 </header>
