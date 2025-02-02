@@ -9,9 +9,12 @@ footer {
 }
 
 header {
-  height: 55px;
+  padding-top: var(--global-size);
+  padding-bottom: var(--global-size);
+  min-height: 55px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .brand-logo {
@@ -26,6 +29,14 @@ header {
 .hero {
   background-color: #f5f7fa;
   height: 60vh;
+  display: flex;
+
+  div:first-child {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .container-gap {
@@ -43,5 +54,30 @@ footer {
 
   .brand-logo {
     color: white;
+  }
+}
+
+.forms-count {
+}
+
+.testimonials {
+  display: flex;
+  width: 100%;
+  padding: calc(var(--global-size) * 2) calc(var(--global-size) * 4);
+  gap: calc(var(--global-size) * 2);
+  img {
+    width: 25%;
+    border-radius: 1rem;
+  }
+  p {
+    color: #22c55e;
+  }
+}
+
+.pricing {
+  div {
+    padding: calc(var(--global-size) * 2) calc(var(--global-size) * 4);
+    display: flex;
+    justify-content: space-around;
   }
 }

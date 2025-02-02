@@ -57,3 +57,11 @@ body {
 .gap {
   gap: var(--global-size);
 }
+
+.text-center {
+  text-align: center;
+}
+
+.text-color-secondary {
+  color: var(--text-color-secondary);
+}

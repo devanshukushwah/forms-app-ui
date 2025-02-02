@@ -1,29 +1,67 @@
 <header>
   <app-logo></app-logo>
+  <p-button
+    label="Login"
+    severity="success"
+    (onClick)="navigateService.navigateToAdmin()"
+  />
 </header>
 <div class="container-gap">
   <div class="hero">
-    <h1>Makeitcoder Forms</h1>
-    <p>Create and gather your data</p>
+    <div>
+      <div>
+        <h1>Makeitcoder Forms</h1>
+        <p>Create and gather your data</p>
+      </div>
+    </div>
+    <div></div>
   </div>
   <div class="our-clients">
-    <h2>Our Clients</h2>
-    <p>We have been working with some Fortune 500+ clients</p>
+    <h2 class="text-center">Our Clients</h2>
+    <p class="text-center text-color-secondary">
+      We have been working with some Fortune 500+ clients
+    </p>
+    <marquee behavior="scroll" direction="left" loop="infinite">
+      <app-clients-logos></app-clients-logos>
+    </marquee>
   </div>
   <div class="forms-count">
-    <div><h2>Usage of forms</h2></div>
+    <h2 class="text-center">Form Activity Summary</h2>
     <div>
-      <p>Total forms created: 0</p>
-      <p>Daily form created: 0</p>
-      <p>Total forms submission: 0</p>
-      <p>Daily form submission: 0</p>
+      <p>Forms created: 0</p>
+      <p>Forms submission: 0</p>
     </div>
   </div>
   <div class="testimonials">
-    <h2>Testimonial</h2>
+    <img src="assets/images/drop.jpg" alt="testimonials" />
+    <div>
+      <i class="text-color-secondary"
+        >This form app has completely transformed the way we collect and manage
+        data! The intuitive interface, seamless submissions, and real-time
+        tracking make it an essential tool for our business. No more messy
+        paperwork—just effortless form creation and automation. Highly
+        recommended!<br />
+        The drag-and-drop builder makes creating forms a breeze, even for
+        beginners. Integration with other tools has saved us hours of manual
+        work. Plus, the analytics dashboard gives us valuable insights to
+        improve our processes. We love how customizable the forms are, allowing
+        us to tailor them to our exact needs. <br />
+        The real-time notifications keep our team updated, ensuring we never
+        miss a submission. <br />
+        The customer support team is also fantastic—always quick to respond and
+        ready to help with any issue. This app has truly streamlined our
+        workflow and made data collection more efficient than ever!</i
+      >
+      <p>– John Doe</p>
+    </div>
   </div>
   <div class="pricing">
-    <h2>Pricing</h2>
+    <h2 class="text-center">Pricing</h2>
+    <div>
+      <app-pricing></app-pricing>
+      <app-pricing></app-pricing>
+      <app-pricing></app-pricing>
+    </div>
   </div>
 </div>
 <footer>
