@@ -13,6 +13,7 @@ import { first } from 'rxjs';
 import { BadgeModule } from 'primeng/badge';
 import { MessageService } from 'primeng/api';
 import { CopyClipboardService } from '../../core/copy-clipboard.service';
+import { DateColumnComponent } from '../../components/date-column/date-column.component';
 
 @Component({
   selector: 'app-admin',
@@ -25,6 +26,7 @@ import { CopyClipboardService } from '../../core/copy-clipboard.service';
     DialogModule,
     LabelExternalLinkComponent,
     BadgeModule,
+    DateColumnComponent,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',

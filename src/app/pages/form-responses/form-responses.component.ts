@@ -11,6 +11,7 @@ import { PageRequest } from '../../common/interface/PageRequest';
 import { FormSubmit } from '../../common/interface/FormSubmit';
 import { ButtonModule } from 'primeng/button';
 import { NavigateService } from '../../core/navigate.service';
+import { DateColumnComponent } from '../../components/date-column/date-column.component';
 
 @Component({
   selector: 'app-form-responses',
@@ -21,6 +22,7 @@ import { NavigateService } from '../../core/navigate.service';
     LabelExternalLinkComponent,
     CommonModule,
     ButtonModule,
+    DateColumnComponent,
   ],
   templateUrl: './form-responses.component.html',
   styleUrl: './form-responses.component.scss',
