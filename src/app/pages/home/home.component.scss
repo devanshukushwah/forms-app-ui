@@ -50,14 +50,35 @@ header {
 }
 
 footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #263238;
+  color: white;
+  padding: var(--global-size) calc(var(--global-size) * 4);
+}
 
-  .brand-logo {
-    color: white;
-  }
+.footer-links a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }
 
 .forms-count {
+  display: flex;
+  div {
+    width: 50%;
+  }
+
+  div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--global-size) * 2);
+  }
 }
 
 .testimonials {
@@ -74,10 +95,39 @@ footer {
   }
 }
 
+// .pricing {
+//   div {
+//     padding: calc(var(--global-size) * 2) calc(var(--global-size) * 4);
+//     display: flex;
+//     justify-content: space-around;
+//     min-width: 33.3333%;
+//   }
+// }
 .pricing {
-  div {
-    padding: calc(var(--global-size) * 2) calc(var(--global-size) * 4);
-    display: flex;
-    justify-content: space-around;
+  padding: calc(var(--global-size) * 2) calc(var(--global-size) * 4);
+}
+
+.text-center {
+  text-align: center; /* Centers the title */
+}
+
+/* Grid for pricing items */
+.pricing > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns by default */
+  gap: calc(var(--global-size) * 4); /* Space between grid items */
+}
+
+/* For medium screens (tablets), switch to 2 columns */
+@media (max-width: 768px) {
+  .pricing > div {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for screens <= 768px */
+  }
+}
+
+/* For small screens (mobile), switch to 1 column */
+@media (max-width: 480px) {
+  .pricing > div {
+    grid-template-columns: 1fr; /* 1 column for screens <= 480px */
   }
 }

@@ -1,31 +1,23 @@
 <div class="p-d-flex p-jc-center p-mt-4">
   <p-card class="pricing-card shadow-4 p-4">
     <ng-template pTemplate="title">
-      <h2 class="p-text-center text-blue-500">Pro Plan</h2>
+      <h2 class="p-text-center text-blue-500">{{ pricingCard.title }}</h2>
     </ng-template>
 
     <ng-template pTemplate="content">
       <div class="p-text-center">
-        <h1 class="text-4xl font-bold text-gray-900">$29.99</h1>
-        <p class="text-gray-600 text-sm">per month</p>
-        <p-tag value="Best Value" severity="success"></p-tag>
+        <h1 class="text-4xl font-bold text-gray-900">
+          {{ pricingCard?.price?.amount }}
+        </h1>
+        <p class="text-gray-600 text-sm">{{ pricingCard?.price?.period }}</p>
+        <p-tag [value]="pricingCard?.price?.tag" severity="success"></p-tag>
       </div>
 
       <p-divider></p-divider>
 
       <ul class="p-text-left p-ml-3 text-gray-700">
-        <li>
-          <i class="pi pi-check text-green-500 p-mr-2"></i> Unlimited Form
-          Creations
-        </li>
-        <li>
-          <i class="pi pi-check text-green-500 p-mr-2"></i> Real-time Analytics
-        </li>
-        <li>
-          <i class="pi pi-check text-green-500 p-mr-2"></i> Custom Branding
-        </li>
-        <li>
-          <i class="pi pi-check text-green-500 p-mr-2"></i> Priority Support
+        <li *ngFor="let feature of pricingCard?.features">
+          <i class="pi pi-angle-right text-green-500 p-mr-2"></i> {{ feature }}
         </li>
       </ul>
     </ng-template>

@@ -26,10 +26,16 @@
     </marquee>
   </div>
   <div class="forms-count">
-    <h2 class="text-center">Form Activity Summary</h2>
     <div>
-      <p>Forms created: 0</p>
-      <p>Forms submission: 0</p>
+      <h2 class="text-center">Form Activity Summary</h2>
+    </div>
+    <div>
+      <p-card header="Forms Created">
+        <p>Forms created: 0</p>
+      </p-card>
+      <p-card header="Forms Submission">
+        <p>Forms submission: 0</p>
+      </p-card>
     </div>
   </div>
   <div class="testimonials">
@@ -58,13 +64,18 @@
   <div class="pricing">
     <h2 class="text-center">Pricing</h2>
     <div>
-      <app-pricing></app-pricing>
-      <app-pricing></app-pricing>
-      <app-pricing></app-pricing>
+      <app-pricing
+        *ngFor="let card of pricingCards"
+        [pricingCard]="card"
+      ></app-pricing>
     </div>
   </div>
 </div>
 <footer>
   <app-logo style="color: white"></app-logo>
-  <div></div>
+  <div class="footer-links">
+    <a routerLink="/home">Home</a>
+    <a routerLink="/about">About Us</a>
+    <a routerLink="/contact">Contact Us</a>
+  </div>
 </footer>
