@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { ResponseModel } from '../../common/interface/ResponseModel';
 import { FormSubmit } from '../../common/interface/FormSubmit';
 import { FormAndSubmit } from '../../common/interface/FormAndSubmit';
+import { MenuItem } from 'primeng/api';
+import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-form-submission',
@@ -25,6 +27,7 @@ import { FormAndSubmit } from '../../common/interface/FormAndSubmit';
     CommonModule,
     ReactiveFormsModule,
     FormFieldFactoryComponent,
+    BreadcrumbComponent,
   ],
   templateUrl: './form-submission.component.html',
   styleUrl: './form-submission.component.scss',
@@ -33,6 +36,7 @@ export class FormSubmissionComponent {
   subId: string = '';
   form!: Form;
   resformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
+  breadcrumbItems!: MenuItem[];
 
   constructor(
     private formSubmitService: FormSubmitService,
@@ -63,8 +67,30 @@ export class FormSubmissionComponent {
             }
             this.resformGroup = this.fb.group(myFormGroupObj);
             this.form = res.data.form;
+            this.initBreadcrumb(res.data.form);
           }
         });
+    }
+  }
+
+  initBreadcrumb(form: Form): void {
+    this.breadcrumbItems = [
+      { icon: 'pi pi-home', route: '/admin' },
+      { label: 'responses', route: '/responses', disabled: true },
+    ];
+    if (form) {
+      this.breadcrumbItems = [
+        ...this.breadcrumbItems,
+        {
+          label: `${form?.formId}`,
+          route: `/responses/${form?.formId}`,
+        },
+        {
+          label: `${this.subId}`,
+          route: `${this.subId}`,
+          disabled: true,
+        },
+      ];
     }
   }
 }

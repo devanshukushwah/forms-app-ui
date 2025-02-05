@@ -12,6 +12,8 @@ import { FormSubmit } from '../../common/interface/FormSubmit';
 import { ButtonModule } from 'primeng/button';
 import { NavigateService } from '../../core/navigate.service';
 import { DateColumnComponent } from '../../components/date-column/date-column.component';
+import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-form-responses',
@@ -19,10 +21,10 @@ import { DateColumnComponent } from '../../components/date-column/date-column.co
   imports: [
     TableModule,
     HeaderComponent,
-    LabelExternalLinkComponent,
     CommonModule,
     ButtonModule,
     DateColumnComponent,
+    BreadcrumbComponent,
   ],
   templateUrl: './form-responses.component.html',
   styleUrl: './form-responses.component.scss',
@@ -33,6 +35,7 @@ export class FormResponsesComponent implements OnInit {
   totalRecords: number = 0; // Total number of records (for pagination)
   loading: boolean = false; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
+  breadcrumbItems!: MenuItem[];
 
   constructor(
     private responsesService: ResponsesService,
@@ -43,6 +46,16 @@ export class FormResponsesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.breadcrumbItems = [
+      { icon: 'pi pi-home', route: '/admin' },
+      { label: 'responses', route: '/responses', disabled: true },
+      {
+        label: this.formId,
+        route: `/responses/${this.formId}`,
+        disabled: true,
+      },
+    ];
+
     this.getResponses(this.formId, 0, this.pageSize);
   }
 

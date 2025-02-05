@@ -20,6 +20,8 @@ import { FormFieldFactoryComponent } from '../../components/form-field-factory/f
 import { FormField } from '../../common/interface/FormField';
 import { FormFieldEditFactoryComponent } from '../../components/form-field-edit-factory/form-field-edit-factory.component';
 import { CardAddButtonComponent } from '../../components/card-add-button/card-add-button.component';
+import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-form',
@@ -34,17 +36,19 @@ import { CardAddButtonComponent } from '../../components/card-add-button/card-ad
     CommonModule,
     FormFieldEditFactoryComponent,
     CardAddButtonComponent,
+    BreadcrumbComponent,
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
   basicDetails: FormGroup;
   isUpdate: boolean = false;
   isCreate: boolean = false;
   fieldformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
   formFields: FormField[] = [];
   formId: string;
+  breadcrumbItems!: MenuItem[];
 
   constructor(
     private formService: FormService,
@@ -64,6 +68,17 @@ export class FormComponent {
         this.handleUpdate();
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.breadcrumbItems = [
+      { icon: 'pi pi-home', route: '/admin' },
+      {
+        label: this.isCreate ? 'Create form' : 'Edit form',
+        route: '/form',
+        disabled: true,
+      },
+    ];
   }
 
   private handleUpdate(): void {

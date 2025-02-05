@@ -11,9 +11,10 @@ import { LabelExternalLinkComponent } from '../../components/label-external-link
 import { PageRequest } from '../../common/interface/PageRequest';
 import { first } from 'rxjs';
 import { BadgeModule } from 'primeng/badge';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { CopyClipboardService } from '../../core/copy-clipboard.service';
 import { DateColumnComponent } from '../../components/date-column/date-column.component';
+import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-admin',
@@ -27,6 +28,7 @@ import { DateColumnComponent } from '../../components/date-column/date-column.co
     LabelExternalLinkComponent,
     BadgeModule,
     DateColumnComponent,
+    BreadcrumbComponent,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
@@ -36,7 +38,7 @@ export class AdminComponent implements OnInit {
   totalRecords: number = 0; // Total number of records (for pagination)
   loading: boolean = false; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
-
+  breadcrumbItems!: MenuItem[];
   constructor(
     private formService: FormService,
     public navigateService: NavigateService,
@@ -46,6 +48,10 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAdminForms(0, this.pageSize);
+    this.breadcrumbItems = [
+      { icon: 'pi pi-home', route: '/admin' },
+      { label: 'My form', route: '/admin', disabled: true },
+    ];
   }
 
   getAdminForms(page: number, size: number): void {
