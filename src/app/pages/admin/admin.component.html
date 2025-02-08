@@ -1,14 +1,15 @@
 <app-header></app-header>
-<app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+<div class="d-flex j-space-between a-center pr-1">
+  <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+  <p-button
+    label="Create Form"
+    [outlined]="true"
+    size="small"
+    (onClick)="navigateService.navigateToForm()"
+    [style.marginTop.rem]="1"
+  />
+</div>
 <div class="container">
-  <div class="d-flex j-end pb-1">
-    <p-button
-      label="Create Form"
-      [outlined]="true"
-      size="small"
-      (onClick)="navigateService.navigateToForm()"
-    />
-  </div>
   <div class="space-h"></div>
   <p-table
     [styleClass]="'p-datatable-sm'"

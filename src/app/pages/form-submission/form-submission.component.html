@@ -1,5 +1,7 @@
 <app-header></app-header>
-<app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+<div class="d-flex j-space-between a-center">
+  <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+</div>
 <div class="container">
   <main *ngIf="form != null" class="form-container">
     <p-card [header]="form.title">

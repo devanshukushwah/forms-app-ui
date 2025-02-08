@@ -37,6 +37,10 @@ body {
   justify-content: center;
 }
 
+.j-space-between {
+  justify-content: space-between;
+}
+
 :root {
   --color-black: black;
   --global-size: 1rem;
@@ -52,6 +56,15 @@ body {
 
 .pb-1 {
   padding-bottom: var(--global-size);
+}
+
+.plr-1 {
+  padding-left: var(--global-size);
+  padding-right: var(--global-size);
+}
+
+.pr-1 {
+  padding-right: var(--global-size);
 }
 
 .gap {
