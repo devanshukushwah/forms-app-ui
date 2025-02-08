@@ -11,7 +11,11 @@
       </app-form-field-factory>
       <br />
       <div class="d-flex j-end a-center">
-        <p-button type="submit" label="Submit" (onClick)="handleSubmitForm()" />
+        <p-button
+          type="submit"
+          label="Submit"
+          (onClick)="handleSubmitForm($event)"
+        />
       </div>
     </form>
   </p-card>

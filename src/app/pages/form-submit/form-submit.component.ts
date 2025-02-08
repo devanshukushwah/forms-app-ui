@@ -58,7 +58,8 @@ export class FormSubmitComponent {
     }
   }
 
-  async handleSubmitForm(): Promise<void> {
+  async handleSubmitForm(e: any): Promise<void> {
+    e.preventDefault();
     if (!this.form?.formId) {
       return;
     }
@@ -67,11 +68,8 @@ export class FormSubmitComponent {
       formId: this.form.formId,
       email: await this.fetchEmail(),
     };
-
-    this.convertFormGroupToFormFieldAnswers(this.resformGroup);
-
     this.formService.submitForm(formSubmit).subscribe((res) => {
-      alert('success');
+      alert('submitted');
     });
   }
 
