@@ -17,6 +17,8 @@ import { FormSubmit } from '../../common/interface/FormSubmit';
 import { FormAndSubmit } from '../../common/interface/FormAndSubmit';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
+import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
+import { FormViewSubmissionComponent } from '../../components/form-view-submission/form-view-submission.component';
 
 @Component({
   selector: 'app-form-submission',
@@ -28,6 +30,7 @@ import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.comp
     ReactiveFormsModule,
     FormFieldFactoryComponent,
     BreadcrumbComponent,
+    FormViewSubmissionComponent,
   ],
   templateUrl: './form-submission.component.html',
   styleUrl: './form-submission.component.scss',
@@ -37,6 +40,7 @@ export class FormSubmissionComponent {
   form!: Form;
   resformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
   breadcrumbItems!: MenuItem[];
+  answers: FormFieldAnswer[] = [];
 
   constructor(
     private formSubmitService: FormSubmitService,
@@ -51,21 +55,7 @@ export class FormSubmissionComponent {
         .getFormSubmission(this.subId)
         .subscribe((res: ResponseModel<FormAndSubmit>) => {
           if (res && res.data) {
-            const answersMap = res.data.submit.answers.reduce(
-              (acc: any, obj: any) => {
-                acc[obj.fieldId] = obj;
-                return acc;
-              },
-              {}
-            );
-
-            let myFormGroupObj: any = {};
-            for (let key of res.data.form.formFields) {
-              myFormGroupObj['fieldId_' + key.fieldId] = [
-                { value: answersMap[key.fieldId]?.value || '', disabled: true },
-              ];
-            }
-            this.resformGroup = this.fb.group(myFormGroupObj);
+            this.answers = res.data.submit.answers;
             this.form = res.data.form;
             this.initBreadcrumb(res.data.form);
           }
