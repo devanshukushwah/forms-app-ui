@@ -28,7 +28,6 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
     CardModule,
     CommonModule,
     ReactiveFormsModule,
-    FormFieldFactoryComponent,
     BreadcrumbComponent,
     FormViewSubmissionComponent,
   ],

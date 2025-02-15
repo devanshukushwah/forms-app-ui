@@ -48,4 +48,8 @@ export class HttpUrlConfigService {
   getFormSubmission(subId: string): string {
     return `${this.baseUrl}/api/v1/form-submit/${subId}`;
   }
+
+  getFormSubmitByFormIdAndEmailThroughJWT(formId: string): string {
+    return `${this.baseUrl}/api/v1/submits/formId/${formId}/email`;
+  }
 }
