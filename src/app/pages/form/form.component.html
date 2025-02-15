@@ -22,6 +22,15 @@
         placeholder="Please enter description..."
         class="w-full"
       ></textarea>
+      <div class="space-h"></div>
+      <div class="d-flex a-center">
+        <p-checkbox
+          formControlName="multipleSubmit"
+          [binary]="true"
+          inputId="multipleSubmit"
+        />
+        <label for="multipleSubmit">&nbsp;Multiple Submit</label>
+      </div>
     </form>
     <p-footer class="d-flex j-end gap">
       <p-button

@@ -22,6 +22,7 @@ import { FormFieldEditFactoryComponent } from '../../components/form-field-edit-
 import { CardAddButtonComponent } from '../../components/card-add-button/card-add-button.component';
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 import { MenuItem } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-form',
@@ -37,6 +38,7 @@ import { MenuItem } from 'primeng/api';
     FormFieldEditFactoryComponent,
     CardAddButtonComponent,
     BreadcrumbComponent,
+    CheckboxModule,
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
@@ -59,6 +61,7 @@ export class FormComponent implements OnInit {
     this.basicDetails = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
+      multipleSubmit: new FormControl(false),
     });
 
     this.activeRoute.data.subscribe((data) => {
@@ -88,8 +91,7 @@ export class FormComponent implements OnInit {
         .subscribe((res: ResponseModel<Form>) => {
           if (res && res.success) {
             this.basicDetails.patchValue({
-              title: res.data.title,
-              description: res.data.description,
+              ...res.data,
             });
 
             let myFormGroupObj: any = {};
