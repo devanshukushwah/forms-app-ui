@@ -59,11 +59,11 @@ export class AdminComponent implements OnInit {
     const pageRequest: PageRequest = { page, size };
 
     this.formService.getAdminForms(pageRequest).subscribe((res) => {
-      if (res && res?.data && res?.data?.content) {
-        this.forms = res.data.content;
+      if (res && res.success && res?.data) {
+        this.forms = res.data.content || [];
         this.totalRecords = res.data.totalElements; // Set total number of records
-        this.loading = false; // Hide loading indicator
       }
+      this.loading = false; // Hide loading indicator
     });
   }
 

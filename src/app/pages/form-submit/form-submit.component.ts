@@ -41,6 +41,7 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
 export class FormSubmitComponent {
   form: Form | null = null;
   formId: string = '';
+  submitLoading: boolean = false;
 
   formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
 
@@ -101,15 +102,22 @@ export class FormSubmitComponent {
     if (!this.form?.formId) {
       return;
     }
+    this.submitLoading = true;
     this.keycloakService.loadUserProfile().then((res) => {
       const formSubmit: FormSubmit = {
         answers: this.convertFormGroupToFormFieldAnswers(this.formGroup),
         formId: this.formId,
         email: res.email,
       };
-      this.formService.submitForm(formSubmit).subscribe((res) => {
-        alert('Form submitted successfully');
-      });
+      this.formService.submitForm(formSubmit).subscribe(
+        (res) => {
+          this.formGroup.disable();
+          this.submitLoading = false;
+        },
+        (err) => {
+          this.submitLoading = false;
+        }
+      );
     });
   }
 
