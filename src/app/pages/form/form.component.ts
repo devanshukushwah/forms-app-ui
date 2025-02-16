@@ -136,8 +136,9 @@ export class FormComponent implements OnInit {
 
   handleAddCardButton(): void {
     const formField: FormField = {
-      attributes: [{ attr: 'title', value: '', attrId: 0, sqc: 0 }],
+      attributes: [],
       fieldType: 'input',
+      fieldTitle: '',
       fieldId: 0,
       formId: this.formId,
     };

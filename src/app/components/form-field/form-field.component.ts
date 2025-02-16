@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { FieldAttribute } from '../../common/interface/FieldAttribute';
 import { ButtonModule } from 'primeng/button';
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CardModule,
     InputTextModule,
+    FormsModule,
     ReactiveFormsModule,
     ButtonModule,
     CommonModule,
@@ -36,32 +38,35 @@ export class FormFieldComponent {
   @Input() submitFormGroup!: FormGroup;
   @Input() viewFormGroup!: FormGroup;
   formGroup!: FormGroup;
-  title: string = '';
+  // title: string = '';
 
   constructor(private formFieldService: FormFieldService) {}
 
   ngOnInit(): void {
-    const attributes: FieldAttribute[] = this.formField.attributes;
-    attributes.forEach((attribute: FieldAttribute) => {
-      if (attribute.attr === 'title') {
-        this.title = attribute.value;
-      }
-    });
+    // const attributes: FieldAttribute[] = this.formField.attributes;
+    // attributes.forEach((attribute: FieldAttribute) => {
+    //   if (attribute.attr === 'title') {
+    //     this.title = attribute.value;
+    //   }
+    // });
 
     this.formGroup = new FormGroup({
-      title: new FormControl(this.title),
+      fieldTitle: new FormControl(
+        this.formField.fieldTitle,
+        Validators.required
+      ),
     });
   }
 
   handleSave(): void {
-    const title: string = this.formGroup.get('title')?.value;
-    const attributes: FieldAttribute[] = this.formField.attributes;
-    const attrField = attributes.find(
-      (attribute: FieldAttribute) => attribute.attr === 'title'
-    );
-    if (attrField) {
-      attrField.value = title;
-    }
+    this.formField.fieldTitle = this.formGroup.get('fieldTitle')?.value;
+    // const attributes: FieldAttribute[] = this.formField.attributes;
+    // const attrField = attributes.find(
+    //   (attribute: FieldAttribute) => attribute.attr === 'title'
+    // );
+    // if (attrField) {
+    //   attrField.value = title;
+    // }
 
     if (this.formField.fieldId >= 1) {
       this.formFieldService
@@ -85,7 +90,7 @@ export class FormFieldComponent {
             this.formField = res.data;
 
             this.formGroup = new FormGroup({
-              title: new FormControl(res.data.attributes[0].value),
+              fieldTitle: new FormControl(res.data.fieldTitle),
             });
           }
         });

@@ -1,22 +1,8 @@
-<form [formGroup]="submitFormGroup" *ngIf="submit === true">
-  <h4>
-    {{ title }}
-  </h4>
-  <input
-    *ngIf="formField.fieldType === 'input'"
-    type="text"
-    pInputText
-    class="w-max"
-    size="small"
-    [formControlName]="'fieldId_' + getString(formField.fieldId)"
-    placeholder="Write your answer"
-  />
-</form>
-
-<form [formGroup]="viewFormGroup" *ngIf="view === true">
-  <h4>
-    {{ title }}
-  </h4>
+<form
+  [formGroup]="view === true ? viewFormGroup : submitFormGroup"
+  *ngIf="view === true || submit === true"
+>
+  <h4>{{ formField.fieldTitle }}</h4>
   <input
     *ngIf="formField.fieldType === 'input'"
     type="text"
@@ -36,7 +22,7 @@
       pInputText
       class="w-max"
       size="small"
-      [formControlName]="'title'"
+      [formControlName]="'fieldTitle'"
       placeholder="Write your question"
     />
   </form>

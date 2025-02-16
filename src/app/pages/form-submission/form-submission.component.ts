@@ -56,13 +56,13 @@ export class FormSubmissionComponent {
           if (res && res.data) {
             this.answers = res.data.submit.answers;
             this.form = res.data.form;
-            this.initBreadcrumb(res.data.form);
+            this.initBreadcrumb(res.data.form, res.data.submit);
           }
         });
     }
   }
 
-  initBreadcrumb(form: Form): void {
+  initBreadcrumb(form: Form, submit: FormSubmit): void {
     this.breadcrumbItems = [
       { icon: 'pi pi-home', route: '/admin' },
       { label: 'responses', route: '/responses', disabled: true },
@@ -75,7 +75,7 @@ export class FormSubmissionComponent {
           route: `/responses/${form?.formId}`,
         },
         {
-          label: `${this.subId}`,
+          label: `${submit.email}`,
           route: `${this.subId}`,
           disabled: true,
         },
