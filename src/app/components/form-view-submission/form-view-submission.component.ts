@@ -9,18 +9,19 @@ import {
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { FormFieldFactoryComponent } from '../form-field-factory/form-field-factory.component';
 import { CommonModule } from '@angular/common';
+import { FormFieldComponent } from '../form-field/form-field.component';
 
 @Component({
   selector: 'app-form-view-submission',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormFieldFactoryComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldComponent],
   templateUrl: './form-view-submission.component.html',
   styleUrl: './form-view-submission.component.scss',
 })
 export class FormViewSubmissionComponent implements OnInit {
   @Input() answers: any;
   @Input() formFields: FormField[] = [];
-  resformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
+  formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
 
   constructor(private fb: FormBuilder) {}
 
@@ -37,7 +38,7 @@ export class FormViewSubmissionComponent implements OnInit {
           { value: answersMap[key.fieldId]?.value || '', disabled: true },
         ];
       }
-      this.resformGroup = this.fb.group(myFormGroupObj);
+      this.formGroup = this.fb.group(myFormGroupObj);
     }
   }
 }

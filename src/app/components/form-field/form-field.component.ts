@@ -12,16 +12,29 @@ import { FieldAttribute } from '../../common/interface/FieldAttribute';
 import { ButtonModule } from 'primeng/button';
 import { FormFieldService } from '../../services/form-field.service';
 import { ResponseModel } from '../../common/interface/ResponseModel';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-field-input-edit',
+  selector: 'app-form-field',
   standalone: true,
-  imports: [CardModule, InputTextModule, ReactiveFormsModule, ButtonModule],
-  templateUrl: './field-input-edit.component.html',
-  styleUrl: './field-input-edit.component.scss',
+  imports: [
+    CardModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    CommonModule,
+  ],
+  templateUrl: './form-field.component.html',
+  styleUrl: './form-field.component.scss',
 })
-export class FieldInputEditComponent implements OnInit {
+export class FormFieldComponent {
+  @Input() edit: boolean = false;
+  @Input() submit: boolean = false;
+  @Input() view: boolean = false;
+
   @Input() formField!: FormField;
+  @Input() submitFormGroup!: FormGroup;
+  @Input() viewFormGroup!: FormGroup;
   formGroup!: FormGroup;
   title: string = '';
 
@@ -29,7 +42,6 @@ export class FieldInputEditComponent implements OnInit {
 
   ngOnInit(): void {
     const attributes: FieldAttribute[] = this.formField.attributes;
-
     attributes.forEach((attribute: FieldAttribute) => {
       if (attribute.attr === 'title') {
         this.title = attribute.value;
@@ -78,5 +90,13 @@ export class FieldInputEditComponent implements OnInit {
           }
         });
     }
+  }
+
+  getString(obj: any): string {
+    if (obj) {
+      return obj.toString();
+    }
+
+    return '';
   }
 }

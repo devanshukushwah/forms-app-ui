@@ -13,12 +13,12 @@
     <p class="m-0">{{ form.description }}</p>
     <br />
     <form
-      [formGroup]="resformGroup"
+      [formGroup]="formGroup"
       *ngIf="isAlreadySubmitted == false; else alreadySubmitted"
     >
       <app-form-field-factory
         [formFields]="form.formFields"
-        [respFormGroup]="resformGroup"
+        [respFormGroup]="formGroup"
       >
       </app-form-field-factory>
       <br />

@@ -1,0 +1,51 @@
+<form [formGroup]="submitFormGroup" *ngIf="submit === true">
+  <h4>
+    {{ title }}
+  </h4>
+  <input
+    *ngIf="formField.fieldType === 'input'"
+    type="text"
+    pInputText
+    class="w-max"
+    size="small"
+    [formControlName]="'fieldId_' + getString(formField.fieldId)"
+    placeholder="Write your answer"
+  />
+</form>
+
+<form [formGroup]="viewFormGroup" *ngIf="view === true">
+  <h4>
+    {{ title }}
+  </h4>
+  <input
+    *ngIf="formField.fieldType === 'input'"
+    type="text"
+    pInputText
+    class="w-max"
+    size="small"
+    [formControlName]="'fieldId_' + getString(formField.fieldId)"
+    placeholder="Write your answer"
+  />
+</form>
+
+<p-card *ngIf="edit === true">
+  <form [formGroup]="formGroup">
+    <input
+      *ngIf="formField.fieldType === 'input'"
+      type="text"
+      pInputText
+      class="w-max"
+      size="small"
+      [formControlName]="'title'"
+      placeholder="Write your question"
+    />
+  </form>
+  <p-footer class="d-flex j-end gap">
+    <p-button
+      [label]="formField.fieldId >= 1 ? 'Update' : 'Create'"
+      size="small"
+      (onClick)="handleSave()"
+      [disabled]="formGroup.invalid || !formGroup.dirty"
+    />
+  </p-footer>
+</p-card>

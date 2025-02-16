@@ -1,7 +1,8 @@
-<form [formGroup]="resformGroup">
-  <app-form-field-factory
-    [formFields]="formFields"
-    [respFormGroup]="resformGroup"
-  >
-  </app-form-field-factory>
-</form>
+<div *ngFor="let item of formFields">
+  <app-form-field
+    [formField]="item"
+    [viewFormGroup]="formGroup"
+    [view]="true"
+  ></app-form-field>
+  <br />
+</div>

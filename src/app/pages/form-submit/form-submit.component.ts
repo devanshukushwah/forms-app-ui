@@ -41,7 +41,10 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
 export class FormSubmitComponent {
   form: Form | null = null;
   formId: string = '';
-  resformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
+
+  formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
+
+  // for already submitted variables
   alreadySubmitMessage: Message[] = [
     { severity: 'info', detail: 'You have already submitted this form' },
   ];
@@ -66,7 +69,7 @@ export class FormSubmitComponent {
           for (let key of res.data.formFields) {
             myFormGroupObj['fieldId_' + key.fieldId] = new FormControl('');
           }
-          this.resformGroup = new FormGroup(myFormGroupObj);
+          this.formGroup = new FormGroup(myFormGroupObj);
 
           if (!this.form?.multipleSubmit) {
             this.fetchAlreadySubmitted();
@@ -100,7 +103,7 @@ export class FormSubmitComponent {
     }
     this.keycloakService.loadUserProfile().then((res) => {
       const formSubmit: FormSubmit = {
-        answers: this.convertFormGroupToFormFieldAnswers(this.resformGroup),
+        answers: this.convertFormGroupToFormFieldAnswers(this.formGroup),
         formId: this.formId,
         email: res.email,
       };
@@ -116,7 +119,6 @@ export class FormSubmitComponent {
     let formFieldAnswers: FormFieldAnswer[] = [];
     const formGroupValue = formGroup.value;
     for (let item in formGroupValue) {
-      console.log(item);
       const fieldId: number = Number.parseInt(item.replace('fieldId_', ''));
       const formFieldAnswer: FormFieldAnswer = {
         fieldId,

@@ -1,7 +1,8 @@
 <div *ngFor="let item of formFields">
-  <app-field-input
-    *ngIf="item.fieldType == 'input'"
+  <app-form-field
     [formField]="item"
-    [respFormGroup]="respFormGroup"
-  ></app-field-input>
+    [submitFormGroup]="respFormGroup"
+    [submit]="true"
+  ></app-form-field>
+  <br />
 </div>
