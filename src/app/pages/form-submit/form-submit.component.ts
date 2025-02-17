@@ -13,7 +13,13 @@ import { FieldInput } from '../../common/interface/FieldInput';
 import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
 import { FormSubmit } from '../../common/interface/FormSubmit';
 import { KeycloakService } from '../../services/keycloak.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MiniFooterComponent } from '../../components/mini-footer/mini-footer.component';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
@@ -56,7 +62,8 @@ export class FormSubmitComponent {
     private formService: FormService,
     private activeRoute: ActivatedRoute,
     private keycloakService: KeycloakService,
-    private formSubmitService: FormSubmitService
+    private formSubmitService: FormSubmitService,
+    private fb: FormBuilder
   ) {
     const param = this.activeRoute.snapshot.paramMap.get('formId');
 
@@ -68,9 +75,12 @@ export class FormSubmitComponent {
 
           let myFormGroupObj: any = {};
           for (let key of res.data.formFields) {
-            myFormGroupObj['fieldId_' + key.fieldId] = new FormControl('');
+            myFormGroupObj['fieldId_' + key.fieldId] = [
+              null,
+              key.required ? Validators.required : null,
+            ];
           }
-          this.formGroup = new FormGroup(myFormGroupObj);
+          this.formGroup = this.fb.group(myFormGroupObj);
 
           if (!this.form?.multipleSubmit) {
             this.fetchAlreadySubmitted();
@@ -99,7 +109,8 @@ export class FormSubmitComponent {
 
   handleSubmitForm(e: any): void {
     e.preventDefault();
-    if (!this.form?.formId) {
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
       return;
     }
     this.submitLoading = true;

@@ -2,7 +2,14 @@
   [formGroup]="view === true ? viewFormGroup : submitFormGroup"
   *ngIf="view === true || submit === true"
 >
-  <h4>{{ formField.fieldTitle }}</h4>
+  <h4>
+    {{ formField.fieldTitle }}
+    <span
+      *ngIf="isRequiredField('fieldId_' + getString(formField.fieldId))"
+      class="required"
+      >*</span
+    >
+  </h4>
   <input
     *ngIf="formField.fieldType === 'input'"
     type="text"
@@ -36,6 +43,16 @@
     [formControlName]="'fieldId_' + getString(formField.fieldId)"
     placeholder="Select your date"
   />
+  <div
+    *ngIf="
+      submit === true &&
+      submitFormGroup.get('fieldId_' + getString(formField.fieldId))?.invalid &&
+      submitFormGroup.get('fieldId_' + getString(formField.fieldId))?.touched
+    "
+    class="error-message"
+  >
+    This field is required!
+  </div>
 </form>
 
 <form [formGroup]="formGroup">

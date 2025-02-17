@@ -66,7 +66,7 @@ export class FormFieldComponent {
         this.formField.fieldTitle,
         Validators.required
       ),
-      required: new FormControl(false, Validators.required),
+      required: new FormControl(this.formField.required, Validators.required),
       fieldType: new FormControl(
         this.formField.fieldType || 'input',
         Validators.required
@@ -156,5 +156,15 @@ export class FormFieldComponent {
     const year = d.getFullYear(); // Get full year
 
     return `${day}-${month}-${year}`;
+  }
+
+  // Check if the field has the required validator
+  isRequiredField(controlName: string): boolean {
+    const formGroup = this.viewFormGroup
+      ? this.viewFormGroup
+      : this.submitFormGroup;
+
+    const control = formGroup.get(controlName);
+    return control?.hasValidator(Validators.required) ?? false;
   }
 }
