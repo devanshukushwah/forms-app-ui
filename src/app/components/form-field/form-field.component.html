@@ -38,22 +38,28 @@
   />
 </form>
 
-<p-card *ngIf="edit === true">
-  <ng-template pTemplate="header">
-    <div class="header">
-      <!-- Dropdown to select field type -->
-      <p-dropdown
-        class="fieldTypeDropdown"
-        [options]="fieldTypes"
-        [(ngModel)]="selectedFieldTypes"
-        optionLabel="type"
-        placeholder="Select a
-      field type"
-      />
-    </div>
-  </ng-template>
+<form [formGroup]="formGroup">
+  <p-card *ngIf="edit === true">
+    <ng-template pTemplate="header">
+      <div class="header">
+        <div class="left">
+          <!-- Dropdown to select field type -->
+          <p-dropdown
+            class="fieldTypeDropdown"
+            [options]="fieldTypes"
+            formControlName="fieldType"
+          />
+        </div>
+        <div class="right">
+          <p-toggleButton
+            onLabel="Required"
+            offLabel="Not Required"
+            formControlName="required"
+          ></p-toggleButton>
+        </div>
+      </div>
+    </ng-template>
 
-  <form [formGroup]="formGroup">
     <input
       type="text"
       pInputText
@@ -62,17 +68,14 @@
       [formControlName]="'fieldTitle'"
       placeholder="Write your question"
     />
-  </form>
 
-  <p-footer class="d-flex j-end gap">
-    <p-button
-      [label]="formField.fieldId >= 1 ? 'Update' : 'Create'"
-      size="small"
-      (onClick)="handleSave()"
-      [disabled]="
-        (formGroup.invalid || !formGroup.dirty) &&
-        selectedFieldTypes.type === formField.fieldType
-      "
-    />
-  </p-footer>
-</p-card>
+    <p-footer class="d-flex j-end gap">
+      <p-button
+        [label]="formField.fieldId >= 1 ? 'Update' : 'Create'"
+        size="small"
+        (onClick)="handleSave()"
+        [disabled]="formGroup.invalid || !formGroup.dirty"
+      />
+    </p-footer>
+  </p-card>
+</form>

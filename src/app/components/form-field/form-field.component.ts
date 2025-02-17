@@ -16,6 +16,7 @@ import { ResponseModel } from '../../common/interface/ResponseModel';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 interface FieldType {
   type: string;
@@ -25,6 +26,7 @@ interface FieldType {
   selector: 'app-form-field',
   standalone: true,
   imports: [
+    ToggleButtonModule,
     CardModule,
     InputTextModule,
     FormsModule,
@@ -47,11 +49,8 @@ export class FormFieldComponent {
   @Input() viewFormGroup!: FormGroup;
   formGroup!: FormGroup;
 
-  fieldTypes: FieldType[] | undefined;
-  selectedFieldTypes: FieldType = { type: 'input' };
-
-  date: Date | undefined;
-
+  fieldTypes: string[] = ['input', 'date'];
+  selectedFieldTypes: string = 'input';
   constructor(private formFieldService: FormFieldService) {}
 
   ngOnInit(): void {
@@ -62,30 +61,21 @@ export class FormFieldComponent {
     //   }
     // });
 
-    console.log(this.viewFormGroup);
-
     this.formGroup = new FormGroup({
       fieldTitle: new FormControl(
         this.formField.fieldTitle,
         Validators.required
       ),
+      required: new FormControl(false, Validators.required),
+      fieldType: new FormControl(
+        this.formField.fieldType || 'input',
+        Validators.required
+      ),
     });
-
-    this.fieldTypes = [{ type: 'input' }, { type: 'date' }];
-
-    if (this.formField?.fieldType) {
-      const find = this.fieldTypes.find(
-        (f) => f.type === this.formField.fieldType
-      );
-
-      if (find) {
-        this.selectedFieldTypes = find;
-      }
-    }
   }
 
   handleSave(): void {
-    this.formField.fieldTitle = this.formGroup.get('fieldTitle')?.value;
+    // this.formField.fieldTitle = this.formGroup.get('fieldTitle')?.value;
     // const attributes: FieldAttribute[] = this.formField.attributes;
     // const attrField = attributes.find(
     //   (attribute: FieldAttribute) => attribute.attr === 'title'
@@ -93,7 +83,15 @@ export class FormFieldComponent {
     // if (attrField) {
     //   attrField.value = title;
     // }
-    this.formField.fieldType = this.selectedFieldTypes.type;
+    // this.formField.fieldType = this.selectedFieldTypes;
+    // this.formField.fieldType = this.selectedFieldTypes.type;
+
+    if (!this.formGroup) return;
+
+    this.formField = {
+      ...this.formField,
+      ...this.formGroup.value,
+    };
 
     if (this.formField.fieldId >= 1) {
       this.formFieldService
@@ -115,10 +113,9 @@ export class FormFieldComponent {
         .subscribe((res: ResponseModel<FormField>) => {
           if (res.success) {
             this.formField = res.data;
-
-            this.formGroup = new FormGroup({
-              fieldTitle: new FormControl(res.data.fieldTitle),
-            });
+            this.formGroup.markAsPristine(); // Mark form as pristine
+            this.formGroup.markAsUntouched(); // Mark form as untouched
+            this.formGroup.updateValueAndValidity(); // Update form validity
           }
         });
     }

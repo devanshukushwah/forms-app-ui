@@ -141,6 +141,7 @@ export class FormComponent implements OnInit {
       fieldTitle: '',
       fieldId: 0,
       formId: this.formId,
+      required: false,
     };
 
     this.formFields.push(formField);

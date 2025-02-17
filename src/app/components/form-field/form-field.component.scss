@@ -1,8 +1,13 @@
 .header {
   padding: var(--global-size);
   padding-bottom: 0;
+  display: flex;
+  div {
+    width: 50%;
+  }
 
-  .fieldTypeDropdown {
-    // display: none;
+  .right {
+    display: flex;
+    justify-content: end;
   }
 }
