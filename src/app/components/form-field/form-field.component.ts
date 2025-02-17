@@ -13,7 +13,13 @@ import { FieldAttribute } from '../../common/interface/FieldAttribute';
 import { ButtonModule } from 'primeng/button';
 import { FormFieldService } from '../../services/form-field.service';
 import { ResponseModel } from '../../common/interface/ResponseModel';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+
+interface FieldType {
+  type: string;
+}
 
 @Component({
   selector: 'app-form-field',
@@ -25,6 +31,8 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     ButtonModule,
     CommonModule,
+    DropdownModule,
+    CalendarModule,
   ],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
@@ -38,7 +46,11 @@ export class FormFieldComponent {
   @Input() submitFormGroup!: FormGroup;
   @Input() viewFormGroup!: FormGroup;
   formGroup!: FormGroup;
-  // title: string = '';
+
+  fieldTypes: FieldType[] | undefined;
+  selectedFieldTypes: FieldType = { type: 'input' };
+
+  date: Date | undefined;
 
   constructor(private formFieldService: FormFieldService) {}
 
@@ -50,12 +62,26 @@ export class FormFieldComponent {
     //   }
     // });
 
+    console.log(this.viewFormGroup);
+
     this.formGroup = new FormGroup({
       fieldTitle: new FormControl(
         this.formField.fieldTitle,
         Validators.required
       ),
     });
+
+    this.fieldTypes = [{ type: 'input' }, { type: 'date' }];
+
+    if (this.formField?.fieldType) {
+      const find = this.fieldTypes.find(
+        (f) => f.type === this.formField.fieldType
+      );
+
+      if (find) {
+        this.selectedFieldTypes = find;
+      }
+    }
   }
 
   handleSave(): void {
@@ -67,6 +93,7 @@ export class FormFieldComponent {
     // if (attrField) {
     //   attrField.value = title;
     // }
+    this.formField.fieldType = this.selectedFieldTypes.type;
 
     if (this.formField.fieldId >= 1) {
       this.formFieldService
@@ -103,5 +130,34 @@ export class FormFieldComponent {
     }
 
     return '';
+  }
+
+  onFieldTypeChange(): void {}
+
+  formatDate(date: any): string {
+    if (!date) return '';
+    const d = new Date(date);
+
+    // Define month names in short format
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    const day = d.getDate().toString().padStart(2, '0'); // Ensures two-digit day (e.g., 01)
+    const month = monthNames[d.getMonth()]; // Get month abbreviation
+    const year = d.getFullYear(); // Get full year
+
+    return `${day}-${month}-${year}`;
   }
 }
