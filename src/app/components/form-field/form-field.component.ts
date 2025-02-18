@@ -67,8 +67,6 @@ export class FormFieldComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.formField);
-
     this.formGroup = this.fb.group({
       fieldTitle: [this.formField?.fieldTitle || '', Validators.required],
       required: [this.formField?.required || false, Validators.required],

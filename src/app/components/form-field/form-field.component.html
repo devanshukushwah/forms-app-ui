@@ -38,7 +38,7 @@
     class="w-max"
     size="small"
     [formControlName]="'fieldId_' + getString(formField.fieldId)"
-    placeholder="Enter your text"
+    [placeholder]="submit ? 'Enter your text' : ''"
   />
 
   <!-- Date -->
