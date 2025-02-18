@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Attribute, Component, Input, OnInit } from '@angular/core';
 import { FormField } from '../../common/interface/FormField';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import {
+  FormArray,
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -17,6 +19,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { RadioButtonModule } from 'primeng/radiobutton';
+
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 interface FieldType {
   type: string;
@@ -35,6 +41,9 @@ interface FieldType {
     CommonModule,
     DropdownModule,
     CalendarModule,
+    RadioButtonModule,
+    InputGroupAddonModule,
+    InputGroupModule,
   ],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
@@ -49,43 +58,80 @@ export class FormFieldComponent {
   @Input() viewFormGroup!: FormGroup;
   formGroup!: FormGroup;
 
-  fieldTypes: string[] = ['input', 'date'];
+  fieldTypes: string[] = ['input', 'date', 'radio'];
   selectedFieldTypes: string = 'input';
-  constructor(private formFieldService: FormFieldService) {}
+
+  constructor(
+    private formFieldService: FormFieldService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    // const attributes: FieldAttribute[] = this.formField.attributes;
-    // attributes.forEach((attribute: FieldAttribute) => {
-    //   if (attribute.attr === 'title') {
-    //     this.title = attribute.value;
-    //   }
-    // });
+    console.log(this.formField);
 
-    this.formGroup = new FormGroup({
-      fieldTitle: new FormControl(
-        this.formField.fieldTitle,
-        Validators.required
-      ),
-      required: new FormControl(this.formField.required, Validators.required),
-      fieldType: new FormControl(
-        this.formField.fieldType || 'input',
-        Validators.required
-      ),
+    this.formGroup = this.fb.group({
+      fieldTitle: [this.formField?.fieldTitle || '', Validators.required],
+      required: [this.formField?.required || false, Validators.required],
+      fieldType: [this.formField?.fieldType || 'input', Validators.required],
+      attributes: this.fb.array(this.initializeOptions()), // Using FormArray
     });
   }
 
-  handleSave(): void {
-    // this.formField.fieldTitle = this.formGroup.get('fieldTitle')?.value;
-    // const attributes: FieldAttribute[] = this.formField.attributes;
-    // const attrField = attributes.find(
-    //   (attribute: FieldAttribute) => attribute.attr === 'title'
-    // );
-    // if (attrField) {
-    //   attrField.value = title;
-    // }
-    // this.formField.fieldType = this.selectedFieldTypes;
-    // this.formField.fieldType = this.selectedFieldTypes.type;
+  // Initialize options
+  initializeOptions(): FormGroup[] {
+    const options = this.formField.attributes
+      .sort((a, b) => {
+        if (a?.sqc && b?.sqc) {
+          return a.sqc - b.sqc;
+        } else return 0;
+      })
+      .map((item) => item.value);
 
+    if (options) {
+      return options.map((option) =>
+        this.fb.group({
+          attr: 'radio',
+          value: [option, Validators.required],
+          sqc: 1,
+        })
+      );
+    }
+
+    return ['Option 1'].map((option) =>
+      this.fb.group({
+        attr: 'radio',
+        value: [null, Validators.required],
+        sqc: 1,
+      })
+    );
+  }
+
+  // Get options as FormArray
+  get attributes(): FormArray {
+    return this.formGroup.get('attributes') as FormArray;
+  }
+
+  // Add new option dynamically
+  addOption(): void {
+    this.attributes.push(
+      this.fb.group({
+        attr: 'radio',
+        value: [null, Validators.required],
+        sqc: this.attributes.length + 1,
+      })
+    );
+    console.log(this.formGroup.value);
+  }
+
+  // Remove an option
+  removeOption(index: number): void {
+    if (this.attributes.length > 1) {
+      this.attributes.removeAt(index);
+      this.formGroup.markAsDirty(); // Mark form as dirty to enable update button
+    }
+  }
+
+  handleSave(): void {
     if (!this.formGroup) return;
 
     this.formField = {

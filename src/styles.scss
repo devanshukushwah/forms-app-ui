@@ -41,6 +41,10 @@ body {
   justify-content: space-between;
 }
 
+.flex-direction-column {
+  flex-direction: column;
+}
+
 :root {
   --color-black: black;
   --global-size: 1rem;
@@ -69,6 +73,10 @@ body {
 
 .gap {
   gap: var(--global-size);
+}
+
+.gap {
+  gap: 2px;
 }
 
 .text-center {

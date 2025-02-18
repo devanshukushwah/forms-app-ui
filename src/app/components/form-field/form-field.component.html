@@ -2,6 +2,7 @@
   [formGroup]="view === true ? viewFormGroup : submitFormGroup"
   *ngIf="view === true || submit === true"
 >
+  <!-- To show question title -->
   <h4>
     {{ formField.fieldTitle }}
     <span
@@ -10,6 +11,26 @@
       >*</span
     >
   </h4>
+
+  <!-- Radio button -->
+  <div
+    *ngIf="formField.fieldType === 'radio'"
+    class="d-flex flex-direction-column gap"
+  >
+    <div *ngFor="let attribute of formField.attributes" class="field-checkbox">
+      <p-radioButton
+        [inputId]="attribute.attrId.toString()"
+        [name]="'fieldId_' + getString(formField.fieldId)"
+        [value]="attribute.value"
+        [formControlName]="'fieldId_' + getString(formField.fieldId)"
+      />
+      <label [for]="attribute.attrId.toString()" class="ml-2">
+        {{ attribute.value }}
+      </label>
+    </div>
+  </div>
+
+  <!-- To show input field -->
   <input
     *ngIf="formField.fieldType === 'input'"
     type="text"
@@ -43,6 +64,8 @@
     [formControlName]="'fieldId_' + getString(formField.fieldId)"
     placeholder="Select your date"
   />
+
+  <!-- To show required field -->
   <div
     *ngIf="
       submit === true &&
@@ -77,6 +100,7 @@
       </div>
     </ng-template>
 
+    <!-- For display question -->
     <input
       type="text"
       pInputText
@@ -85,6 +109,37 @@
       [formControlName]="'fieldTitle'"
       placeholder="Write your question"
     />
+
+    <!-- For display radio -->
+    <div
+      *ngIf="formGroup.get('fieldType')?.value === 'radio'"
+      formArrayName="attributes"
+    >
+      <br />
+      <div
+        *ngFor="let attribute of attributes.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <p-inputGroup>
+          <p-inputGroupAddon>Option {{ i + 1 }}</p-inputGroupAddon>
+          <input
+            type="text"
+            formControlName="value"
+            pInputText
+            placeholder="Enter some text"
+          />
+          <button
+            type="button"
+            (click)="removeOption(i)"
+            pButton
+            icon="pi pi-times"
+            class="p-button-danger"
+          ></button>
+        </p-inputGroup>
+        <br />
+      </div>
+      <p-button label="Add option" size="small" (click)="addOption()" />
+    </div>
 
     <p-footer class="d-flex j-end gap">
       <p-button
