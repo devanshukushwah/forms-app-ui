@@ -17,9 +17,13 @@ export class KeycloakService {
   }
 
   init(): Promise<boolean> {
-    return this.keycloak.init({
-      onLoad: 'login-required',
-    });
+    return this.keycloak
+      .init({
+        onLoad: 'check-sso', // Do NOT force login on app load
+        checkLoginIframe: false,
+      })
+      .then((authenticated) => authenticated)
+      .catch(() => false);
   }
 
   getToken(): string | undefined {

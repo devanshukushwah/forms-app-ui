@@ -32,6 +32,7 @@ export const routes: Routes = [
   {
     path: 'f/:formId',
     component: FormSubmitComponent,
+	canActivate: [AuthGuard],
   },
   {
     path: 'responses/:formId',
