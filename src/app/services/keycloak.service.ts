@@ -17,13 +17,9 @@ export class KeycloakService {
   }
 
   init(): Promise<boolean> {
-    return this.keycloak
-      .init({
-        onLoad: 'check-sso', // Do NOT force login on app load
-        checkLoginIframe: false,
-      })
-      .then((authenticated) => authenticated)
-      .catch(() => false);
+    return this.keycloak.init({
+      checkLoginIframe: false,
+    });
   }
 
   getToken(): string | undefined {
