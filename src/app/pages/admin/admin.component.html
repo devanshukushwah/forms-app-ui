@@ -14,7 +14,7 @@
   <p-table
     [styleClass]="'p-datatable-sm'"
     [value]="forms"
-    [paginator]="true"
+    [paginator]="totalPages > 1"
     [rows]="pageSize"
     [totalRecords]="totalRecords"
     (onPage)="onPageChange($event)"

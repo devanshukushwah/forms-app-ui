@@ -39,6 +39,7 @@ export class AdminComponent implements OnInit {
   loading: boolean = false; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
   breadcrumbItems!: MenuItem[];
+  totalPages: number = 1;
   constructor(
     private formService: FormService,
     public navigateService: NavigateService,
@@ -62,6 +63,7 @@ export class AdminComponent implements OnInit {
       if (res && res.success && res?.data) {
         this.forms = res.data.content || [];
         this.totalRecords = res.data.totalElements; // Set total number of records
+        this.totalPages = res.data.totalPages; // Set total number of pages
       }
       this.loading = false; // Hide loading indicator
     });

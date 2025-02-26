@@ -40,19 +40,10 @@
         (onClick)="navigateService.navigateToAdmin()"
       />
       <p-button
-        *ngIf="isCreate === true"
-        label="Create Form"
+        label="Save"
         size="small"
         [loading]="isLoading"
         (onClick)="handleBasicDetailSubmit()"
-        [disabled]="basicDetails.invalid || !basicDetails.dirty"
-      />
-      <p-button
-        *ngIf="isUpdate === true"
-        label="Update Basic Details"
-        size="small"
-        [loading]="isLoading"
-        (onClick)="handleEditBasicDetailSubmit()"
         [disabled]="basicDetails.invalid || !basicDetails.dirty"
       />
     </p-footer>

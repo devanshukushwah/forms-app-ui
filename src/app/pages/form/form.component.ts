@@ -87,7 +87,6 @@ export class FormComponent implements OnInit {
 
   private handleUpdate(): void {
     if (this.formId) {
-      this.startLoading();
       this.formService.getForm(this.formId).subscribe(
         (res: ResponseModel<Form>) => {
           if (res && res.success) {
@@ -103,6 +102,38 @@ export class FormComponent implements OnInit {
 
             this.formFields = res.data.formFields;
           }
+        },
+        () => {}
+      );
+    }
+  }
+
+  handleBasicDetailSubmit(): void {
+    this.startLoading();
+    if (this.isCreate) {
+      this.formService.addForm(this.basicDetails.value).subscribe(
+        (res: ResponseModel<string>) => {
+          if (res && res.success) {
+            this.basicDetails.reset();
+            this.stopLoading();
+            setTimeout(() => {
+              this.navigateService.navigateToFormEdit(res.data);
+            }, 1000);
+          }
+        },
+        () => {
+          this.stopLoading();
+        }
+      );
+    } else {
+      this.formService.putForm(this.formId, this.basicDetails.value).subscribe(
+        (res: ResponseModel<Form>) => {
+          if (res && res.success) {
+            this.navigateService.navigateToFormEdit(res.data.formId);
+            this.basicDetails.markAsPristine(); // Mark form as pristine
+            this.basicDetails.markAsUntouched(); // Mark form as untouched
+            this.basicDetails.updateValueAndValidity(); // Update form validity
+          }
           this.stopLoading();
         },
         () => {
@@ -110,40 +141,6 @@ export class FormComponent implements OnInit {
         }
       );
     }
-  }
-
-  handleBasicDetailSubmit(): void {
-    this.startLoading();
-    this.formService.addForm(this.basicDetails.value).subscribe(
-      (res: ResponseModel<string>) => {
-        if (res && res.success) {
-          this.basicDetails.reset();
-          this.navigateService.navigateToFormEdit(res.data);
-        }
-        this.stopLoading();
-      },
-      () => {
-        this.stopLoading();
-      }
-    );
-  }
-
-  handleEditBasicDetailSubmit(): void {
-    this.startLoading();
-    this.formService.putForm(this.formId, this.basicDetails.value).subscribe(
-      (res: ResponseModel<Form>) => {
-        if (res && res.success) {
-          this.navigateService.navigateToFormEdit(res.data.formId);
-          this.basicDetails.markAsPristine(); // Mark form as pristine
-          this.basicDetails.markAsUntouched(); // Mark form as untouched
-          this.basicDetails.updateValueAndValidity(); // Update form validity
-        }
-        this.stopLoading();
-      },
-      () => {
-        this.stopLoading();
-      }
-    );
   }
 
   handleAddCardButton(): void {

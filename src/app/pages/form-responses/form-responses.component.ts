@@ -36,6 +36,7 @@ export class FormResponsesComponent implements OnInit {
   loading: boolean = false; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
   breadcrumbItems!: MenuItem[];
+  totalPages = 1;
 
   constructor(
     private responsesService: ResponsesService,
@@ -67,6 +68,7 @@ export class FormResponsesComponent implements OnInit {
         if (res && res?.data && res?.data?.responses?.content) {
           this.formSubmits = res.data.responses.content;
           this.totalRecords = res.data.responses.totalElements; // Set total number of records
+          this.totalPages = res.data.responses.totalPages; // Set total number of pages
           this.loading = false; // Hide loading indicator
         }
       });
