@@ -146,6 +146,7 @@
         [label]="formField.fieldId >= 1 ? 'Update' : 'Create'"
         size="small"
         (onClick)="handleSave()"
+        [loading]="isLoading"
         [disabled]="formGroup.invalid || !formGroup.dirty"
       />
     </p-footer>

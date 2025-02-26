@@ -43,6 +43,7 @@
         *ngIf="isCreate === true"
         label="Create Form"
         size="small"
+        [loading]="isLoading"
         (onClick)="handleBasicDetailSubmit()"
         [disabled]="basicDetails.invalid || !basicDetails.dirty"
       />
@@ -50,6 +51,7 @@
         *ngIf="isUpdate === true"
         label="Update Basic Details"
         size="small"
+        [loading]="isLoading"
         (onClick)="handleEditBasicDetailSubmit()"
         [disabled]="basicDetails.invalid || !basicDetails.dirty"
       />

@@ -47,7 +47,7 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
 export class FormSubmitComponent {
   form: Form | null = null;
   formId: string = '';
-  submitLoading: boolean = false;
+  isLoading: boolean = false;
 
   formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
 
@@ -113,7 +113,7 @@ export class FormSubmitComponent {
       this.formGroup.markAllAsTouched();
       return;
     }
-    this.submitLoading = true;
+    this.startLoading();
     this.keycloakService.loadUserProfile().then((res) => {
       const formSubmit: FormSubmit = {
         answers: this.convertFormGroupToFormFieldAnswers(this.formGroup),
@@ -123,10 +123,10 @@ export class FormSubmitComponent {
       this.formService.submitForm(formSubmit).subscribe(
         (res) => {
           this.formGroup.disable();
-          this.submitLoading = false;
+          this.stopLoading();
         },
         (err) => {
-          this.submitLoading = false;
+          this.stopLoading();
         }
       );
     });
@@ -146,5 +146,15 @@ export class FormSubmitComponent {
       formFieldAnswers.push(formFieldAnswer);
     }
     return formFieldAnswers;
+  }
+
+  startLoading(): void {
+    this.isLoading = true;
+  }
+
+  stopLoading(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 }

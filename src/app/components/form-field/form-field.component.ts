@@ -61,6 +61,8 @@ export class FormFieldComponent {
   fieldTypes: string[] = ['input', 'date', 'radio'];
   selectedFieldTypes: string = 'input';
 
+  isLoading: boolean = false;
+
   constructor(
     private formFieldService: FormFieldService,
     private fb: FormBuilder
@@ -118,7 +120,6 @@ export class FormFieldComponent {
         sqc: this.attributes.length + 1,
       })
     );
-    console.log(this.formGroup.value);
   }
 
   // Remove an option
@@ -137,6 +138,7 @@ export class FormFieldComponent {
       ...this.formGroup.value,
     };
 
+    this.startLoading();
     if (this.formField.fieldId >= 1) {
       this.formFieldService
         .putFormField(
@@ -144,24 +146,36 @@ export class FormFieldComponent {
           this.formField.fieldId,
           this.formField
         )
-        .subscribe((res) => {
-          if (res.success) {
-            this.formGroup.markAsPristine(); // Mark form as pristine
-            this.formGroup.markAsUntouched(); // Mark form as untouched
-            this.formGroup.updateValueAndValidity(); // Update form validity
+        .subscribe(
+          (res) => {
+            if (res.success) {
+              this.formGroup.markAsPristine(); // Mark form as pristine
+              this.formGroup.markAsUntouched(); // Mark form as untouched
+              this.formGroup.updateValueAndValidity(); // Update form validity
+            }
+            this.stopLoading();
+          },
+          () => {
+            this.stopLoading();
           }
-        });
+        );
     } else {
       this.formFieldService
         .postFormField(this.formField.formId, this.formField)
-        .subscribe((res: ResponseModel<FormField>) => {
-          if (res.success) {
-            this.formField = res.data;
-            this.formGroup.markAsPristine(); // Mark form as pristine
-            this.formGroup.markAsUntouched(); // Mark form as untouched
-            this.formGroup.updateValueAndValidity(); // Update form validity
+        .subscribe(
+          (res: ResponseModel<FormField>) => {
+            if (res.success) {
+              this.formField = res.data;
+              this.formGroup.markAsPristine(); // Mark form as pristine
+              this.formGroup.markAsUntouched(); // Mark form as untouched
+              this.formGroup.updateValueAndValidity(); // Update form validity
+            }
+            this.stopLoading();
+          },
+          () => {
+            this.stopLoading();
           }
-        });
+        );
     }
   }
 
@@ -210,5 +224,15 @@ export class FormFieldComponent {
 
     const control = formGroup.get(controlName);
     return control?.hasValidator(Validators.required) ?? false;
+  }
+
+  startLoading(): void {
+    this.isLoading = true;
+  }
+
+  stopLoading(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 }
