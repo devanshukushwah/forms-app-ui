@@ -39,7 +39,7 @@ export class KeycloakService {
   }
 
   logout(): void {
-    this.keycloak.logout();
+    this.keycloak.logout({ redirectUri: window.location.origin });
   }
 
   loadUserProfile(): Promise<Keycloak.KeycloakProfile> {

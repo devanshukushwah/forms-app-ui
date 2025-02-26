@@ -8,6 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { DividerModule } from 'primeng/divider';
 import { PricingComponent } from '../../components/pricing/pricing.component';
 import { CommonModule } from '@angular/common';
+import { KeycloakService } from '../../services/keycloak.service';
 
 @Component({
   selector: 'app-home',
@@ -69,5 +70,8 @@ export class HomeComponent {
     },
   ];
 
-  constructor(public navigateService: NavigateService) {}
+  constructor(
+    public navigateService: NavigateService,
+    public keycloakService: KeycloakService
+  ) {}
 }

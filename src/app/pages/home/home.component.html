@@ -1,8 +1,17 @@
 <header>
   <app-logo></app-logo>
+
   <p-button
+    *ngIf="!keycloakService.isAuthenticated()"
     label="Login"
     severity="success"
+    (onClick)="navigateService.navigateToAdmin()"
+  />
+  <p-button
+    *ngIf="keycloakService.isAuthenticated()"
+    label="Dashboard"
+    [outlined]="true"
+    severity="info"
     (onClick)="navigateService.navigateToAdmin()"
   />
 </header>
