@@ -114,7 +114,6 @@ export class FormComponent implements OnInit {
       this.formService.addForm(this.basicDetails.value).subscribe(
         (res: ResponseModel<string>) => {
           if (res && res.success) {
-            this.basicDetails.reset();
             this.stopLoading();
             setTimeout(() => {
               this.navigateService.navigateToFormEdit(res.data);

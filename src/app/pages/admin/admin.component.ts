@@ -15,6 +15,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { CopyClipboardService } from '../../core/copy-clipboard.service';
 import { DateColumnComponent } from '../../components/date-column/date-column.component';
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
+import { ExportService } from '../../services/export.service';
 
 @Component({
   selector: 'app-admin',
@@ -44,7 +45,8 @@ export class AdminComponent implements OnInit {
     private formService: FormService,
     public navigateService: NavigateService,
     private copyClipboardService: CopyClipboardService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private exportService: ExportService
   ) {}
 
   ngOnInit(): void {
@@ -83,5 +85,9 @@ export class AdminComponent implements OnInit {
       summary: 'Share',
       detail: 'Copied to clipboard',
     });
+  }
+
+  handleExport(formId: string): void {
+    window.open(this.exportService.exportForm(formId));
   }
 }

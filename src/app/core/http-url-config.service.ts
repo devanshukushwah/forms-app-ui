@@ -52,4 +52,8 @@ export class HttpUrlConfigService {
   getFormSubmitByFormIdAndEmailThroughJWT(formId: string): string {
     return `${this.baseUrl}/api/v1/submits/formId/${formId}/email`;
   }
+
+  getExportForm(formId: string): string {
+    return `${this.baseUrl}/api/v1/exports/forms/${formId}?format=csv`;
+  }
 }

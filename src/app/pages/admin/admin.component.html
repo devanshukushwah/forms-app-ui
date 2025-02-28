@@ -71,6 +71,13 @@
             value="2"
             (onClick)="copyToClipboard(response.formId)"
           />
+          <p-button
+            icon="pi pi-file-export"
+            [rounded]="true"
+            [text]="true"
+            size="small"
+            (onClick)="handleExport(response.formId)"
+          />
         </td>
       </tr>
     </ng-template>
