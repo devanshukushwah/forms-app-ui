@@ -88,6 +88,23 @@ export class AdminComponent implements OnInit {
   }
 
   handleExport(formId: string): void {
-    window.open(this.exportService.exportForm(formId));
+    this.exportService.exportForm(formId).subscribe(
+      (response) => {
+        const blob = new Blob([response], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${formId}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Download failed:', error);
+      }
+    );
   }
 }

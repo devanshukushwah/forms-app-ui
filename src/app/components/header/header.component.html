@@ -8,10 +8,10 @@
   <div class="d-flex a-center gap">
     <b>{{ firstLastname }}</b>
     <p-button
+      label="LOGOUT"
+      severity="danger"
       icon="pi pi-sign-out"
-      [rounded]="true"
-      [raised]="true"
-      severity="info"
+      [text]="true"
       size="small"
       (click)="keyCloakService.logout()"
     />

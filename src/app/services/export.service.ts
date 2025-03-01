@@ -12,7 +12,9 @@ export class ExportService {
     private http: HttpClient
   ) {}
 
-  exportForm(formId: string): string {
-    return this.httpUrlConfig.getExportForm(formId);
+  exportForm(formId: string): Observable<any> {
+    return this.http.get(this.httpUrlConfig.getExportForm(formId), {
+      responseType: 'text',
+    });
   }
 }

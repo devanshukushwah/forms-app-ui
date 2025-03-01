@@ -12,4 +12,8 @@ header {
 
 header > * {
   color: var(--primary-color-text);
+
+  ::ng-deep .p-button-text {
+    color: white !important;
+  }
 }
