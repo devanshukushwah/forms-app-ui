@@ -48,6 +48,7 @@ export class FormSubmitComponent {
   form: Form | null = null;
   formId: string = '';
   isLoading: boolean = false;
+  isFormSubmitted: boolean = false;
 
   formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
 
@@ -107,12 +108,16 @@ export class FormSubmitComponent {
     });
   }
 
-  handleSubmitForm(e: any): void {
+  handleSubmitForm(e: Event): void {
     e.preventDefault();
+    // return if the event is not trusted
+    if (!e.isTrusted) return;
+
     if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
       return;
     }
+
     this.startLoading();
     this.keycloakService.loadUserProfile().then((res) => {
       const formSubmit: FormSubmit = {
@@ -123,7 +128,10 @@ export class FormSubmitComponent {
       this.formService.submitForm(formSubmit).subscribe(
         (res) => {
           this.formGroup.disable();
-          this.stopLoading();
+          setTimeout(() => {
+            this.isLoading = false;
+            this.isFormSubmitted = true;
+          }, 500);
         },
         (err) => {
           this.stopLoading();

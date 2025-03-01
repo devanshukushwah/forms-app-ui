@@ -24,11 +24,13 @@
       <br />
       <div class="d-flex j-end a-center">
         <p-button
-          type="submit"
-          label="Submit"
+          type="button"
+          [label]="isFormSubmitted ? 'Done' : 'Submit'"
+          [icon]="isFormSubmitted ? 'pi pi-check' : ''"
           [loading]="isLoading"
           (onClick)="handleSubmitForm($event)"
           [disabled]="formGroup.disabled"
+          size="small"
         />
       </div>
     </form>
