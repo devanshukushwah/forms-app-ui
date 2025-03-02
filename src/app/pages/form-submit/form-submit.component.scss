@@ -2,3 +2,20 @@
   max-width: 800px;
   margin: 0 auto;
 }
+
+.bg-img {
+  background-image: url("https://raw.githubusercontent.com/devanshukushwah/cdn/refs/heads/main/forms-app/images/bg-1.svg");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+}
+
+.form-info {
+  padding: var(--global-size);
+  padding-bottom: 0;
+}

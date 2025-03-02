@@ -1,17 +1,46 @@
-<main *ngIf="form != null" class="form-container">
+<main *ngIf="form != null" class="form-container container">
+  <div class="bg-img"></div>
   <p-card [header]="form.title">
+    <ng-template pTemplate="header">
+      <div class="form-info" *ngIf="isAlreadySubmitted">
+        <p-messages
+          [(value)]="alreadySubmitMessage"
+          [enableService]="false"
+          [closable]="false"
+        />
+      </div>
+    </ng-template>
     <p class="m-0">{{ form.description }}</p>
     <br />
-    <form [formGroup]="resformGroup">
+    <form
+      [formGroup]="formGroup"
+      *ngIf="isAlreadySubmitted == false; else alreadySubmitted"
+    >
       <app-form-field-factory
         [formFields]="form.formFields"
-        [respFormGroup]="resformGroup"
+        [respFormGroup]="formGroup"
       >
       </app-form-field-factory>
       <br />
       <div class="d-flex j-end a-center">
-        <p-button type="submit" label="Submit" (onClick)="handleSubmitForm()" />
+        <p-button
+          type="button"
+          [label]="isFormSubmitted ? 'Done' : 'Submit'"
+          [icon]="isFormSubmitted ? 'pi pi-check' : ''"
+          [loading]="isLoading"
+          (onClick)="handleSubmitForm($event)"
+          [disabled]="formGroup.disabled"
+          size="small"
+        />
       </div>
     </form>
+
+    <ng-template #alreadySubmitted>
+      <app-form-view-submission
+        [formFields]="form.formFields"
+        [answers]="answers"
+      ></app-form-view-submission>
+    </ng-template>
   </p-card>
+  <app-mini-footer></app-mini-footer>
 </main>

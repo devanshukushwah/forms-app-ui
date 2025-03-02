@@ -1,0 +1,95 @@
+<header>
+  <app-logo></app-logo>
+
+  <p-button
+    *ngIf="!keycloakService.isAuthenticated()"
+    label="Login"
+    severity="success"
+    (onClick)="navigateService.navigateToAdmin()"
+    size="small"
+  />
+  <p-button
+    *ngIf="keycloakService.isAuthenticated()"
+    label="Dashboard"
+    [outlined]="true"
+    severity="info"
+    (onClick)="navigateService.navigateToAdmin()"
+    size="small"
+  />
+</header>
+<div class="container-gap">
+  <div class="hero">
+    <div>
+      <div>
+        <h1>Makeitcoder Forms</h1>
+        <p>Create and gather your data</p>
+      </div>
+    </div>
+    <div></div>
+  </div>
+  <div class="our-clients">
+    <h2 class="text-center">Our Clients</h2>
+    <p class="text-center text-color-secondary">
+      We have been working with some Fortune 500+ clients
+    </p>
+    <marquee behavior="scroll" direction="left" loop="infinite">
+      <app-clients-logos></app-clients-logos>
+    </marquee>
+  </div>
+  <div class="forms-count">
+    <div>
+      <h2 class="text-center">Form Activity Summary</h2>
+    </div>
+    <div>
+      <p-card header="Forms Created">
+        <p>Forms created: 0</p>
+      </p-card>
+      <p-card header="Forms Submission">
+        <p>Forms submission: 0</p>
+      </p-card>
+    </div>
+  </div>
+  <div class="testimonials">
+    <img
+      src="https://raw.githubusercontent.com/devanshukushwah/cdn/refs/heads/main/forms-app/images/drop.jpg"
+      alt="testimonials"
+    />
+    <div>
+      <i class="text-color-secondary"
+        >This form app has completely transformed the way we collect and manage
+        data! The intuitive interface, seamless submissions, and real-time
+        tracking make it an essential tool for our business. No more messy
+        paperwork—just effortless form creation and automation. Highly
+        recommended!<br />
+        The drag-and-drop builder makes creating forms a breeze, even for
+        beginners. Integration with other tools has saved us hours of manual
+        work. Plus, the analytics dashboard gives us valuable insights to
+        improve our processes. We love how customizable the forms are, allowing
+        us to tailor them to our exact needs. <br />
+        The real-time notifications keep our team updated, ensuring we never
+        miss a submission. <br />
+        The customer support team is also fantastic—always quick to respond and
+        ready to help with any issue. This app has truly streamlined our
+        workflow and made data collection more efficient than ever!</i
+      >
+      <p>– John Doe</p>
+    </div>
+  </div>
+  <div class="pricing">
+    <h2 class="text-center">Pricing</h2>
+    <div>
+      <app-pricing
+        *ngFor="let card of pricingCards"
+        [pricingCard]="card"
+      ></app-pricing>
+    </div>
+  </div>
+</div>
+<footer>
+  <app-logo style="color: white"></app-logo>
+  <div class="footer-links">
+    <a routerLink="/home">Home</a>
+    <a routerLink="/about">About Us</a>
+    <a routerLink="/contact">Contact Us</a>
+  </div>
+</footer>

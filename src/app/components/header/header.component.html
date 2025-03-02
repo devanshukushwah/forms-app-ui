@@ -1,10 +1,19 @@
 <header>
-  <div class="brand">
-    <b class="text">My Form</b>
+  <div>
+    <app-logo></app-logo>
+    <!-- <div class="navigation">
+      <b class="text" (click)="navigateService.navigateToAdmin()">Admin</b>
+    </div> -->
   </div>
-  <div class="navigation">
-    <b class="text" (click)="navigateService.navigateToAdmin()">Admin</b>
+  <div class="d-flex a-center gap">
+    <b>{{ firstLastname }}</b>
+    <p-button
+      label="LOGOUT"
+      severity="danger"
+      icon="pi pi-sign-out"
+      [text]="true"
+      size="small"
+      (click)="keyCloakService.logout()"
+    />
   </div>
-
-  <div class="p-toolbar-group-right"></div>
 </header>

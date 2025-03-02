@@ -10,10 +10,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ResponseModel } from '../common/interface/ResponseModel';
+import { KeycloakService } from '../services/keycloak.service';
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private keycloakService: KeycloakService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -44,6 +48,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         summary: 'Unauthorized',
         detail: 'Please login to continue.',
       });
+      this.keycloakService.login();
     } else if (!res.success && res.isAppException) {
       this.messageService.add({
         severity: 'error',

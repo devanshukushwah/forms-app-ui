@@ -25,6 +25,20 @@ export class FormFieldService {
   }
 
   postFormField(formId: string, formField: FormField): Observable<any> {
-    return this.http.post(this.httpUrlConfig.postFormField(formId), formField);
+    const postAttributes = formField.attributes.map((attr) => {
+      const obj: any = { ...attr };
+      delete obj.attrId;
+      return obj;
+    });
+    const obj: any = { ...formField };
+    delete obj.fieldId;
+    obj.attributes = postAttributes;
+    return this.http.post(this.httpUrlConfig.postFormField(formId), obj);
+  }
+
+  deleteFormField(formId: string, fieldId: number): Observable<any> {
+    return this.http.delete(
+      this.httpUrlConfig.deleteFormField(formId, fieldId)
+    );
   }
 }

@@ -18,7 +18,7 @@ export class KeycloakService {
 
   init(): Promise<boolean> {
     return this.keycloak.init({
-      onLoad: 'login-required',
+      checkLoginIframe: false,
     });
   }
 
@@ -35,7 +35,7 @@ export class KeycloakService {
   }
 
   logout(): void {
-    this.keycloak.logout();
+    this.keycloak.logout({ redirectUri: window.location.origin });
   }
 
   loadUserProfile(): Promise<Keycloak.KeycloakProfile> {

@@ -45,7 +45,19 @@ export class HttpUrlConfigService {
     return `${this.baseUrl}/api/v1/forms/${formId}/formFields`;
   }
 
-  getFormSubmission(subId: number): string {
+  deleteFormField(formId: string, fieldId: number): string {
+    return `${this.baseUrl}/api/v1/forms/${formId}/formFields/${fieldId}`;
+  }
+
+  getFormSubmission(subId: string): string {
     return `${this.baseUrl}/api/v1/form-submit/${subId}`;
+  }
+
+  getFormSubmitByFormIdAndEmailThroughJWT(formId: string): string {
+    return `${this.baseUrl}/api/v1/submits/formId/${formId}/email`;
+  }
+
+  getExportForm(formId: string): string {
+    return `${this.baseUrl}/api/v1/exports/forms/${formId}?format=csv`;
   }
 }

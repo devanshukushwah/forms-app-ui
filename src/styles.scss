@@ -37,6 +37,14 @@ body {
   justify-content: center;
 }
 
+.j-space-between {
+  justify-content: space-between;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
 :root {
   --color-black: black;
   --global-size: 1rem;
@@ -54,6 +62,23 @@ body {
   padding-bottom: var(--global-size);
 }
 
+.plr-1 {
+  padding-left: var(--global-size);
+  padding-right: var(--global-size);
+}
+
+.pr-1 {
+  padding-right: var(--global-size);
+}
+
 .gap {
   gap: var(--global-size);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-color-secondary {
+  color: var(--text-color-secondary);
 }

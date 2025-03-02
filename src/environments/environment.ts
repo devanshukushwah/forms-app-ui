@@ -1,4 +1,4 @@
 export const environment = {
-  apiURL: 'http://backend.forms-app.local',
-  keycloakURL: 'http://keycloak.local.com',
+  apiURL: 'https://forms-app-backend.makeitcoder.com',
+  keycloakURL: 'https://auth.makeitcoder.com',
 };

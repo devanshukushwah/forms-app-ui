@@ -18,4 +18,8 @@ export class NavigateService {
   navigateToAdmin(): void {
     this.router.navigate(['/admin']);
   }
+
+  navigateToSubmission(subId: string): void {
+    this.router.navigate([`submission/${subId}`]);
+  }
 }

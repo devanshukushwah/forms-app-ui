@@ -1,12 +1,15 @@
 <app-header></app-header>
+<div class="d-flex j-space-between a-center">
+  <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+</div>
 <div class="container">
   <p-table
+    [styleClass]="'p-datatable-sm'"
     [value]="formSubmits"
-    [paginator]="true"
+    [paginator]="totalPages > 1"
     [rows]="pageSize"
     [totalRecords]="totalRecords"
     (onPage)="onPageChange($event)"
-    [loading]="loading"
     [lazy]="true"
     [rowsPerPageOptions]="[5, 10, 20]"
     [showCurrentPageReport]="true"
@@ -14,22 +17,37 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Submit ID</th>
         <th>Email</th>
         <th>Submitted At</th>
+        <th>Action</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-response>
-      <tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="!isLoading">
         <td>
-          <app-label-external-link
-            [label]="response.subId"
-            [link]="'submission/' + response.subId"
-            textForNullValue="submission not found"
-          ></app-label-external-link>
+          <div class="d-flex a-center gap">
+            <i class="pi pi-user"></i>
+            {{ response.email }}
+          </div>
         </td>
-        <td>{{ response.email || "Anonymous" }}</td>
-        <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
+        <td>
+          <app-date-column [date]="response.createdDate"></app-date-column>
+        </td>
+        <td>
+          <p-button
+            size="small"
+            icon="pi pi-eye"
+            [rounded]="true"
+            [text]="true"
+            severity="info "
+            (onClick)="viewResponse(response.subId)"
+          />
+        </td>
       </tr>
     </ng-template>
   </p-table>

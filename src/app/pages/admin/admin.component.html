@@ -1,28 +1,27 @@
 <app-header></app-header>
-
+<div class="d-flex j-space-between a-center pr-1">
+  <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+  <p-button
+    label="Create Form"
+    [outlined]="true"
+    size="small"
+    (onClick)="navigateService.navigateToForm()"
+    [style.marginTop.rem]="1"
+  />
+</div>
 <div class="container">
-  <div class="d-flex j-end pb-1">
-    <p-button
-      label="Create Form"
-      [outlined]="true"
-      size="small"
-      (onClick)="navigateService.navigateToForm()"
-    />
-  </div>
   <div class="space-h"></div>
   <p-table
-    [styleClass]="'p-datatable-sm'"
+    styleClass="p-datatable-sm"
     [value]="forms"
-    [paginator]="true"
+    [paginator]="totalPages > 1"
     [rows]="pageSize"
     [totalRecords]="totalRecords"
     (onPage)="onPageChange($event)"
-    [loading]="loading"
     [lazy]="true"
     [rowsPerPageOptions]="[5, 10, 20]"
     [showCurrentPageReport]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}
-    entries"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -33,15 +32,28 @@
         <th>Actions</th>
       </tr>
     </ng-template>
+
     <ng-template pTemplate="body" let-response>
-      <tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="!isLoading">
         <td>
-          <a [href]="response.formId" target="_blank" rel="noopener noreferrer">
+          <div class="d-flex a-center gap">
+            <i class="pi pi-book"></i>
             {{ response.formId }}
-          </a>
+          </div>
         </td>
-        <td>{{ response.title }}</td>
-        <td>{{ response.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
+        <td>
+          <p>{{ response.title }}</p>
+        </td>
+        <td>
+          <app-date-column [date]="response.createdDate"></app-date-column>
+        </td>
         <td>
           <app-label-external-link
             [label]="response.submitsCount"
@@ -57,7 +69,30 @@
             size="small"
             (onClick)="navigateService.navigateToFormEdit(response.formId)"
           />
+          <p-button
+            icon="pi pi-share-alt"
+            [rounded]="true"
+            [text]="true"
+            pBadge
+            value="2"
+            (onClick)="copyToClipboard(response.formId)"
+          />
+          <p-button
+            icon="pi pi-file-export"
+            [rounded]="true"
+            [text]="true"
+            size="small"
+            [disabled]="response.submitsCount < 1"
+            (onClick)="handleExport(response.formId)"
+          />
         </td>
+      </tr>
+    </ng-template>
+
+    <!-- Empty Message Template -->
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="text-center">No form created</td>
       </tr>
     </ng-template>
   </p-table>

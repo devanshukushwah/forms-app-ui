@@ -1,15 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormField } from '../../common/interface/FormField';
 import { CommonModule } from '@angular/common';
-import { FieldInputEditComponent } from '../field-input-edit/field-input-edit.component';
+import { FormFieldComponent } from '../form-field/form-field.component';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-form-field-edit-factory',
   standalone: true,
-  imports: [CommonModule, FieldInputEditComponent],
+  imports: [CommonModule, FormFieldComponent, CardModule],
   templateUrl: './form-field-edit-factory.component.html',
   styleUrl: './form-field-edit-factory.component.scss',
 })
 export class FormFieldEditFactoryComponent {
-  @Input() formFields: FormField[] = [];
+  @Input() formFields!: FormField[];
+  @Output() deleteFormField: EventEmitter<any> = new EventEmitter();
+
+  constructor() {}
+
+  handleDeleteFormField(data: any): void {
+    this.deleteFormField.emit(data);
+  }
 }

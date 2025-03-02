@@ -20,6 +20,10 @@ import { FormFieldFactoryComponent } from '../../components/form-field-factory/f
 import { FormField } from '../../common/interface/FormField';
 import { FormFieldEditFactoryComponent } from '../../components/form-field-edit-factory/form-field-edit-factory.component';
 import { CardAddButtonComponent } from '../../components/card-add-button/card-add-button.component';
+import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
+import { MenuItem } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormFieldService } from '../../services/form-field.service';
 
 @Component({
   selector: 'app-form',
@@ -34,27 +38,33 @@ import { CardAddButtonComponent } from '../../components/card-add-button/card-ad
     CommonModule,
     FormFieldEditFactoryComponent,
     CardAddButtonComponent,
+    BreadcrumbComponent,
+    CheckboxModule,
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
   basicDetails: FormGroup;
   isUpdate: boolean = false;
   isCreate: boolean = false;
   fieldformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
   formFields: FormField[] = [];
   formId: string;
+  breadcrumbItems!: MenuItem[];
+  isLoading: boolean = false;
 
   constructor(
     private formService: FormService,
     public navigateService: NavigateService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private formFieldService: FormFieldService
   ) {
     this.formId = this.activeRoute.snapshot.paramMap.get('formId') || '';
     this.basicDetails = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
+      multipleSubmit: new FormControl(false),
     });
 
     this.activeRoute.data.subscribe((data) => {
@@ -66,15 +76,24 @@ export class FormComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.breadcrumbItems = [
+      { icon: 'pi pi-home', route: '/admin' },
+      {
+        label: this.isCreate ? 'Create form' : 'Edit form',
+        route: '/form',
+        disabled: true,
+      },
+    ];
+  }
+
   private handleUpdate(): void {
     if (this.formId) {
-      this.formService
-        .getForm(this.formId)
-        .subscribe((res: ResponseModel<Form>) => {
+      this.formService.getForm(this.formId).subscribe(
+        (res: ResponseModel<Form>) => {
           if (res && res.success) {
             this.basicDetails.patchValue({
-              title: res.data.title,
-              description: res.data.description,
+              ...res.data,
             });
 
             let myFormGroupObj: any = {};
@@ -85,46 +104,85 @@ export class FormComponent {
 
             this.formFields = res.data.formFields;
           }
-        });
+        },
+        () => {}
+      );
     }
   }
 
   handleBasicDetailSubmit(): void {
-    const form: Form = this.basicDetails.value;
-    this.formService.addForm(form).subscribe((res: ResponseModel<string>) => {
-      this.resetBasicDetailForm();
-      if (res && res.success) {
-        this.navigateService.navigateToFormEdit(res.data);
-      }
-    });
-  }
-
-  handleEditBasicDetailSubmit(): void {
-    const form: Form = this.basicDetails.value;
-    this.formService
-      .putForm(this.formId, form)
-      .subscribe((res: ResponseModel<Form>) => {
-        if (res && res.success) {
-          this.navigateService.navigateToFormEdit(res.data.formId);
-          this.basicDetails.markAsPristine(); // Mark form as pristine
-          this.basicDetails.markAsUntouched(); // Mark form as untouched
-          this.basicDetails.updateValueAndValidity(); // Update form validity
+    this.startLoading();
+    if (this.isCreate) {
+      this.formService.addForm(this.basicDetails.value).subscribe(
+        (res: ResponseModel<string>) => {
+          if (res && res.success) {
+            this.stopLoading();
+            setTimeout(() => {
+              this.navigateService.navigateToFormEdit(res.data);
+            }, 1000);
+          }
+        },
+        () => {
+          this.stopLoading();
         }
-      });
-  }
-
-  resetBasicDetailForm(): void {
-    this.basicDetails.reset();
+      );
+    } else {
+      this.formService.putForm(this.formId, this.basicDetails.value).subscribe(
+        (res: ResponseModel<Form>) => {
+          if (res && res.success) {
+            this.navigateService.navigateToFormEdit(res.data.formId);
+            this.basicDetails.markAsPristine(); // Mark form as pristine
+            this.basicDetails.markAsUntouched(); // Mark form as untouched
+            this.basicDetails.updateValueAndValidity(); // Update form validity
+          }
+          this.stopLoading();
+        },
+        () => {
+          this.stopLoading();
+        }
+      );
+    }
   }
 
   handleAddCardButton(): void {
     const formField: FormField = {
-      attributes: [{ attr: 'title', value: '', attrId: 0, sqc: 0 }],
+      attributes: [],
       fieldType: 'input',
+      fieldTitle: '',
       fieldId: 0,
       formId: this.formId,
+      required: false,
     };
 
     this.formFields.push(formField);
+  }
+
+  deleteFormField(data: any): void {
+    const { fieldId, idx } = data;
+
+    if (fieldId > 0) {
+      this.formFieldService
+        .deleteFormField(
+          this.formId, // formId
+          fieldId // fieldId
+        )
+        .subscribe((res) => {
+          if (res.success) {
+            this.formFields.splice(idx, 1);
+          }
+        });
+    } else {
+      this.formFields.splice(idx, 1);
+    }
+  }
+
+  startLoading(): void {
+    this.isLoading = true;
+  }
+
+  stopLoading(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 }

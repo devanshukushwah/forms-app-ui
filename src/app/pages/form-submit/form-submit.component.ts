@@ -13,7 +13,18 @@ import { FieldInput } from '../../common/interface/FieldInput';
 import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
 import { FormSubmit } from '../../common/interface/FormSubmit';
 import { KeycloakService } from '../../services/keycloak.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MiniFooterComponent } from '../../components/mini-footer/mini-footer.component';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
+import { FormSubmitService } from '../../services/form-submit.service';
+import { FormViewSubmissionComponent } from '../../components/form-view-submission/form-view-submission.component';
 
 @Component({
   selector: 'app-form-submit',
@@ -26,50 +37,106 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
     DividerModule,
     ButtonModule,
     ReactiveFormsModule,
+    MiniFooterComponent,
+    MessagesModule,
+    FormViewSubmissionComponent,
   ],
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',
 })
 export class FormSubmitComponent {
   form: Form | null = null;
-  resformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
+  formId: string = '';
+  isLoading: boolean = false;
+  isFormSubmitted: boolean = false;
+
+  formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
+
+  // for already submitted variables
+  alreadySubmitMessage: Message[] = [
+    { severity: 'info', detail: 'You have already submitted this form' },
+  ];
+  isAlreadySubmitted: boolean = false;
+  answers: FormFieldAnswer[] = [];
 
   constructor(
     private formService: FormService,
     private activeRoute: ActivatedRoute,
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private formSubmitService: FormSubmitService,
+    private fb: FormBuilder
   ) {
-    const paramId = this.activeRoute.snapshot.paramMap.get('formId');
+    const param = this.activeRoute.snapshot.paramMap.get('formId');
 
-    if (paramId) {
-      this.formService.getForm(paramId).subscribe((res) => {
+    if (param) {
+      this.formId = param;
+      this.formService.getForm(this.formId).subscribe((res) => {
         if (res && res?.data) {
           this.form = res.data;
 
           let myFormGroupObj: any = {};
           for (let key of res.data.formFields) {
-            myFormGroupObj['fieldId_' + key.fieldId] = new FormControl('');
+            myFormGroupObj['fieldId_' + key.fieldId] = [
+              null,
+              key.required ? Validators.required : null,
+            ];
           }
-          this.resformGroup = new FormGroup(myFormGroupObj);
+          this.formGroup = this.fb.group(myFormGroupObj);
+
+          if (!this.form?.multipleSubmit) {
+            this.fetchAlreadySubmitted();
+          }
         }
       });
     }
   }
 
-  async handleSubmitForm(): Promise<void> {
-    if (!this.form?.formId) {
+  fetchAlreadySubmitted(): void {
+    this.keycloakService.loadUserProfile().then((userProfile) => {
+      if (!userProfile.email) {
+        return;
+      }
+
+      this.formSubmitService
+        .getFormSubmitByFormIdAndEmailThroughJWT(this.formId)
+        .subscribe((res) => {
+          if (res && res.data) {
+            this.isAlreadySubmitted = true;
+            this.answers = res.data.answers;
+          }
+        });
+    });
+  }
+
+  handleSubmitForm(e: Event): void {
+    e.preventDefault();
+    // return if the event is not trusted
+    if (!e.isTrusted) return;
+
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
       return;
     }
-    const formSubmit: FormSubmit = {
-      answers: this.convertFormGroupToFormFieldAnswers(this.resformGroup),
-      formId: this.form.formId,
-      email: await this.fetchEmail(),
-    };
 
-    this.convertFormGroupToFormFieldAnswers(this.resformGroup);
-
-    this.formService.submitForm(formSubmit).subscribe((res) => {
-      alert('success');
+    this.startLoading();
+    this.keycloakService.loadUserProfile().then((res) => {
+      const formSubmit: FormSubmit = {
+        answers: this.convertFormGroupToFormFieldAnswers(this.formGroup),
+        formId: this.formId,
+        email: res.email,
+      };
+      this.formService.submitForm(formSubmit).subscribe(
+        (res) => {
+          this.formGroup.disable();
+          setTimeout(() => {
+            this.isLoading = false;
+            this.isFormSubmitted = true;
+          }, 500);
+        },
+        (err) => {
+          this.stopLoading();
+        }
+      );
     });
   }
 
@@ -79,7 +146,6 @@ export class FormSubmitComponent {
     let formFieldAnswers: FormFieldAnswer[] = [];
     const formGroupValue = formGroup.value;
     for (let item in formGroupValue) {
-      console.log(item);
       const fieldId: number = Number.parseInt(item.replace('fieldId_', ''));
       const formFieldAnswer: FormFieldAnswer = {
         fieldId,
@@ -90,8 +156,13 @@ export class FormSubmitComponent {
     return formFieldAnswers;
   }
 
-  async fetchEmail(): Promise<string | null | undefined> {
-    const profile = await this.keycloakService.loadUserProfile();
-    return profile.email;
+  startLoading(): void {
+    this.isLoading = true;
+  }
+
+  stopLoading(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 }
