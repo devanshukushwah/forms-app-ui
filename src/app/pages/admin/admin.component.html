@@ -76,6 +76,7 @@
             [rounded]="true"
             [text]="true"
             size="small"
+            [disabled]="response.submitsCount < 1"
             (onClick)="handleExport(response.formId)"
           />
         </td>
