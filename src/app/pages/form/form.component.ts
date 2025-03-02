@@ -157,23 +157,8 @@ export class FormComponent implements OnInit {
     this.formFields.push(formField);
   }
 
-  deleteFormField(data: any): void {
-    const { fieldId, idx } = data;
-
-    if (fieldId > 0) {
-      this.formFieldService
-        .deleteFormField(
-          this.formId, // formId
-          fieldId // fieldId
-        )
-        .subscribe((res) => {
-          if (res.success) {
-            this.formFields.splice(idx, 1);
-          }
-        });
-    } else {
-      this.formFields.splice(idx, 1);
-    }
+  deleteFormField(idx: any): void {
+    this.formFields.splice(idx, 1);
   }
 
   startLoading(): void {
