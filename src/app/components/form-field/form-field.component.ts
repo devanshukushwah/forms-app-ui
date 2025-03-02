@@ -71,6 +71,7 @@ export class FormFieldComponent {
   selectedFieldTypes: string = 'input';
 
   isLoading: boolean = false;
+  isDeleteLoading = false;
 
   @Output() deleteFormField: EventEmitter<any> = new EventEmitter();
 
@@ -192,10 +193,23 @@ export class FormFieldComponent {
   }
 
   handleDeleteFormField(): void {
-    this.deleteFormField.emit({
-      fieldId: this.formField.fieldId,
-      idx: this.idx,
-    });
+    this.isDeleteLoading = true;
+
+    this.formFieldService
+      .deleteFormField(
+        this.formField.formId, // formId
+        this.formField.fieldId // fieldId
+      )
+      .subscribe(
+        (res) => {
+          if (res.success) {
+            this.deleteFormField.emit(this.idx);
+          }
+        },
+        () => {
+          this.isDeleteLoading = false;
+        }
+      );
   }
 
   getString(obj: any): string {
