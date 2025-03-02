@@ -14,6 +14,7 @@ import { NavigateService } from '../../core/navigate.service';
 import { DateColumnComponent } from '../../components/date-column/date-column.component';
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 import { MenuItem } from 'primeng/api';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-form-responses',
@@ -25,6 +26,7 @@ import { MenuItem } from 'primeng/api';
     ButtonModule,
     DateColumnComponent,
     BreadcrumbComponent,
+    SkeletonModule,
   ],
   templateUrl: './form-responses.component.html',
   styleUrl: './form-responses.component.scss',
@@ -33,7 +35,7 @@ export class FormResponsesComponent implements OnInit {
   formSubmits!: FormSubmit[];
   formId: string;
   totalRecords: number = 0; // Total number of records (for pagination)
-  loading: boolean = false; // To show loading indicator
+  isLoading: boolean = false; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
   breadcrumbItems!: MenuItem[];
   totalPages = 1;
@@ -61,7 +63,7 @@ export class FormResponsesComponent implements OnInit {
   }
 
   getResponses(formId: string, page: number, size: number): void {
-    this.loading = true;
+    this.isLoading = true;
     this.responsesService
       .getResponses(formId, { page, size })
       .subscribe((res) => {
@@ -69,7 +71,7 @@ export class FormResponsesComponent implements OnInit {
           this.formSubmits = res.data.responses.content;
           this.totalRecords = res.data.responses.totalElements; // Set total number of records
           this.totalPages = res.data.responses.totalPages; // Set total number of pages
-          this.loading = false; // Hide loading indicator
+          this.isLoading = false; // Hide loading indicator
         }
       });
   }
@@ -83,7 +85,6 @@ export class FormResponsesComponent implements OnInit {
 
   viewResponse(subId: string) {
     // Redirect to response details page
-    // window.location.href = `/form-responses/${this.formId}/response/${subId}`;
     this.navigateService.navigateToSubmission(subId);
   }
 }

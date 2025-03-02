@@ -16,6 +16,7 @@ import { CopyClipboardService } from '../../core/copy-clipboard.service';
 import { DateColumnComponent } from '../../components/date-column/date-column.component';
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 import { ExportService } from '../../services/export.service';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-admin',
@@ -30,6 +31,7 @@ import { ExportService } from '../../services/export.service';
     BadgeModule,
     DateColumnComponent,
     BreadcrumbComponent,
+    SkeletonModule,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
@@ -37,7 +39,7 @@ import { ExportService } from '../../services/export.service';
 export class AdminComponent implements OnInit {
   forms!: Form[];
   totalRecords: number = 0; // Total number of records (for pagination)
-  loading: boolean = false; // To show loading indicator
+  isLoading: boolean = false; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
   breadcrumbItems!: MenuItem[];
   totalPages: number = 1;
@@ -58,7 +60,7 @@ export class AdminComponent implements OnInit {
   }
 
   getAdminForms(page: number, size: number): void {
-    this.loading = true;
+    this.isLoading = true;
     const pageRequest: PageRequest = { page, size };
 
     this.formService.getAdminForms(pageRequest).subscribe((res) => {
@@ -67,7 +69,7 @@ export class AdminComponent implements OnInit {
         this.totalRecords = res.data.totalElements; // Set total number of records
         this.totalPages = res.data.totalPages; // Set total number of pages
       }
-      this.loading = false; // Hide loading indicator
+      this.isLoading = false; // Hide loading indicator
     });
   }
 

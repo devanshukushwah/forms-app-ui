@@ -18,7 +18,6 @@
     [rows]="pageSize"
     [totalRecords]="totalRecords"
     (onPage)="onPageChange($event)"
-    [loading]="loading"
     [lazy]="true"
     [rowsPerPageOptions]="[5, 10, 20]"
     [showCurrentPageReport]="true"
@@ -35,7 +34,14 @@
     </ng-template>
 
     <ng-template pTemplate="body" let-response>
-      <tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="!isLoading">
         <td>
           <div class="d-flex a-center gap">
             <i class="pi pi-book"></i>
