@@ -1,4 +1,4 @@
 export const environment = {
-  apiURL: 'http://backend.forms-app.local',
-  keycloakURL: 'http://keycloak.local.com',
+  apiURL: 'http://localhost:9080',
+  keycloakURL: 'http://localhost:8080',
 };
