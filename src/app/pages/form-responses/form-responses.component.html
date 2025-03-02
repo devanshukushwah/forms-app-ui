@@ -23,12 +23,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-response>
-      <tr *ngIf="isLoading">
-        <td><p-skeleton height="3rem" /></td>
-        <td><p-skeleton height="3rem" /></td>
-        <td><p-skeleton height="3rem" /></td>
-      </tr>
-      <tr *ngIf="!isLoading">
+      <tr>
         <td>
           <div class="d-flex a-center gap">
             <i class="pi pi-user"></i>
@@ -48,6 +43,19 @@
             (onClick)="viewResponse(response.subId)"
           />
         </td>
+      </tr>
+    </ng-template>
+    <!-- Empty Message Template -->
+    <ng-template pTemplate="emptymessage">
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="!isLoading">
+        <td colspan="5" class="text-center">No form created</td>
       </tr>
     </ng-template>
   </p-table>

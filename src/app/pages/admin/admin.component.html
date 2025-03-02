@@ -34,14 +34,7 @@
     </ng-template>
 
     <ng-template pTemplate="body" let-response>
-      <tr *ngIf="isLoading">
-        <td><p-skeleton height="3rem" /></td>
-        <td><p-skeleton height="3rem" /></td>
-        <td><p-skeleton height="3rem" /></td>
-        <td><p-skeleton height="3rem" /></td>
-        <td><p-skeleton height="3rem" /></td>
-      </tr>
-      <tr *ngIf="!isLoading">
+      <tr>
         <td>
           <div class="d-flex a-center gap">
             <i class="pi pi-book"></i>
@@ -91,7 +84,14 @@
 
     <!-- Empty Message Template -->
     <ng-template pTemplate="emptymessage">
-      <tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="!isLoading">
         <td colspan="5" class="text-center">No form created</td>
       </tr>
     </ng-template>

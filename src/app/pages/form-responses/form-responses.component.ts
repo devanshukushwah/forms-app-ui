@@ -35,7 +35,7 @@ export class FormResponsesComponent implements OnInit {
   formSubmits!: FormSubmit[];
   formId: string;
   totalRecords: number = 0; // Total number of records (for pagination)
-  isLoading: boolean = false; // To show loading indicator
+  isLoading: boolean = true; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
   breadcrumbItems!: MenuItem[];
   totalPages = 1;
