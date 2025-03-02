@@ -50,6 +50,7 @@
   </p-card>
   <app-form-field-edit-factory
     [formFields]="formFields"
+    (deleteFormField)="deleteFormField($event)"
   ></app-form-field-edit-factory>
   <ng-container *ngIf="isUpdate === true">
     <div class="space-h"></div>

@@ -90,12 +90,17 @@
             formControlName="fieldType"
           />
         </div>
-        <div class="right">
+        <div class="right gap">
           <p-toggleButton
             onLabel="Required"
             offLabel="Not Required"
             formControlName="required"
           ></p-toggleButton>
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            (onClick)="handleDeleteFormField()"
+          />
         </div>
       </div>
     </ng-template>

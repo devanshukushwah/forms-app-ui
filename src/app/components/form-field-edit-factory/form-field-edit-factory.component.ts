@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormField } from '../../common/interface/FormField';
 import { CommonModule } from '@angular/common';
 import { FormFieldComponent } from '../form-field/form-field.component';
@@ -13,6 +13,11 @@ import { CardModule } from 'primeng/card';
 })
 export class FormFieldEditFactoryComponent {
   @Input() formFields!: FormField[];
+  @Output() deleteFormField: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
+
+  handleDeleteFormField(data: any): void {
+    this.deleteFormField.emit(data);
+  }
 }

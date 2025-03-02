@@ -23,6 +23,7 @@ import { CardAddButtonComponent } from '../../components/card-add-button/card-ad
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 import { MenuItem } from 'primeng/api';
 import { CheckboxModule } from 'primeng/checkbox';
+import { FormFieldService } from '../../services/form-field.service';
 
 @Component({
   selector: 'app-form',
@@ -56,7 +57,8 @@ export class FormComponent implements OnInit {
   constructor(
     private formService: FormService,
     public navigateService: NavigateService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private formFieldService: FormFieldService
   ) {
     this.formId = this.activeRoute.snapshot.paramMap.get('formId') || '';
     this.basicDetails = new FormGroup({
@@ -153,6 +155,25 @@ export class FormComponent implements OnInit {
     };
 
     this.formFields.push(formField);
+  }
+
+  deleteFormField(data: any): void {
+    const { fieldId, idx } = data;
+
+    if (fieldId > 0) {
+      this.formFieldService
+        .deleteFormField(
+          this.formId, // formId
+          fieldId // fieldId
+        )
+        .subscribe((res) => {
+          if (res.success) {
+            this.formFields.splice(idx, 1);
+          }
+        });
+    } else {
+      this.formFields.splice(idx, 1);
+    }
   }
 
   startLoading(): void {

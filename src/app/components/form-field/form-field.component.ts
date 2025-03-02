@@ -1,4 +1,11 @@
-import { Attribute, Component, Input, OnInit } from '@angular/core';
+import {
+  Attribute,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormField } from '../../common/interface/FormField';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -23,6 +30,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { NavigateService } from '../../core/navigate.service';
 
 interface FieldType {
   type: string;
@@ -56,6 +64,7 @@ export class FormFieldComponent {
   @Input() formField!: FormField;
   @Input() submitFormGroup!: FormGroup;
   @Input() viewFormGroup!: FormGroup;
+  @Input() idx!: number;
   formGroup!: FormGroup;
 
   fieldTypes: string[] = ['input', 'date', 'radio'];
@@ -63,9 +72,12 @@ export class FormFieldComponent {
 
   isLoading: boolean = false;
 
+  @Output() deleteFormField: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private formFieldService: FormFieldService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private navigateService: NavigateService
   ) {}
 
   ngOnInit(): void {
@@ -177,6 +189,13 @@ export class FormFieldComponent {
           }
         );
     }
+  }
+
+  handleDeleteFormField(): void {
+    this.deleteFormField.emit({
+      fieldId: this.formField.fieldId,
+      idx: this.idx,
+    });
   }
 
   getString(obj: any): string {

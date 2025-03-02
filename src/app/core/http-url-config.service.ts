@@ -45,6 +45,10 @@ export class HttpUrlConfigService {
     return `${this.baseUrl}/api/v1/forms/${formId}/formFields`;
   }
 
+  deleteFormField(formId: string, fieldId: number): string {
+    return `${this.baseUrl}/api/v1/forms/${formId}/formFields/${fieldId}`;
+  }
+
   getFormSubmission(subId: string): string {
     return `${this.baseUrl}/api/v1/form-submit/${subId}`;
   }

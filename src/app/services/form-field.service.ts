@@ -35,4 +35,10 @@ export class FormFieldService {
     obj.attributes = postAttributes;
     return this.http.post(this.httpUrlConfig.postFormField(formId), obj);
   }
+
+  deleteFormField(formId: string, fieldId: number): Observable<any> {
+    return this.http.delete(
+      this.httpUrlConfig.deleteFormField(formId, fieldId)
+    );
+  }
 }
