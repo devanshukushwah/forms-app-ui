@@ -39,7 +39,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 export class AdminComponent implements OnInit {
   forms!: Form[];
   totalRecords: number = 0; // Total number of records (for pagination)
-  isLoading: boolean = false; // To show loading indicator
+  isLoading: boolean = true; // To show loading indicator
   pageSize: number = 10; // Number of rows per page
   breadcrumbItems!: MenuItem[];
   totalPages: number = 1;
