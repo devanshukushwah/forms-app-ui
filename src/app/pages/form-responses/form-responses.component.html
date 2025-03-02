@@ -51,11 +51,29 @@
         <td><p-skeleton height="3rem" /></td>
         <td><p-skeleton height="3rem" /></td>
         <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+        <td><p-skeleton height="3rem" /></td>
+      </tr>
+      <tr *ngIf="isLoading">
+        <td><p-skeleton height="3rem" /></td>
         <td><p-skeleton height="3rem" /></td>
         <td><p-skeleton height="3rem" /></td>
       </tr>
       <tr *ngIf="!isLoading">
-        <td colspan="5" class="text-center">No form created</td>
+        <td colspan="3" class="text-center">No form created</td>
       </tr>
     </ng-template>
   </p-table>
