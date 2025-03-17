@@ -14,6 +14,10 @@ export class HttpUrlConfigService {
     return `${this.baseUrl}/api/v1/forms/${formId}`;
   }
 
+  getFormCached(formId: string): string {
+    return `${this.baseUrl}/api/v2/forms/${formId}`;
+  }
+
   getAdminForms(pageRequest: PageRequest): string {
     const { page, size } = pageRequest;
     return `${this.baseUrl}/api/v1/forms?page=${page}&size=${size}`;
