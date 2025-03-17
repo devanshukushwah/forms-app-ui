@@ -70,7 +70,7 @@ export class FormSubmitComponent {
 
     if (param) {
       this.formId = param;
-      this.formService.getForm(this.formId).subscribe((res) => {
+      this.formService.getFormCached(this.formId).subscribe((res) => {
         if (res && res?.data) {
           this.form = res.data;
 

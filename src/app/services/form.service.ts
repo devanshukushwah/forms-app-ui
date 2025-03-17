@@ -19,6 +19,10 @@ export class FormService {
     return this.http.get(this.httpUrlConfig.getForm(id));
   }
 
+  getFormCached(id: string): Observable<any> {
+    return this.http.get(this.httpUrlConfig.getFormCached(id));
+  }
+
   submitForm(body: FormSubmit): Observable<any> {
     return this.http.post(this.httpUrlConfig.submitForm(body.formId), body);
   }
