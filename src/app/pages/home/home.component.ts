@@ -74,4 +74,10 @@ export class HomeComponent {
     public navigateService: NavigateService,
     public keycloakService: KeycloakService
   ) {}
+
+  login(): void {
+    this.keycloakService.login({
+      redirectUri: window.location.origin + this.navigateService.admin,
+    });
+  }
 }

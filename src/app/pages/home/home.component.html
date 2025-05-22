@@ -5,7 +5,7 @@
     *ngIf="!keycloakService.isAuthenticated()"
     label="Login"
     severity="success"
-    (onClick)="navigateService.navigateToAdmin()"
+    (onClick)="login()"
     size="small"
   />
   <p-button

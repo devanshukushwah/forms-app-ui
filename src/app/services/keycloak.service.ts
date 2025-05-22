@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Keycloak from 'keycloak-js';
+import Keycloak, { KeycloakLoginOptions } from 'keycloak-js';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -30,8 +30,8 @@ export class KeycloakService {
     return this.keycloak.authenticated || false;
   }
 
-  login(): void {
-    this.keycloak.login();
+  login(options?: KeycloakLoginOptions): void {
+    this.keycloak.login(options);
   }
 
   logout(): void {
