@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormService } from '../../services/form.service';
 import { ActivatedRoute } from '@angular/router';
 import { Form } from '../../common/interface/Form';
@@ -25,6 +25,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { FormSubmitService } from '../../services/form-submit.service';
 import { FormViewSubmissionComponent } from '../../components/form-view-submission/form-view-submission.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-form-submit',
@@ -37,6 +38,7 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
     DividerModule,
     ButtonModule,
     ReactiveFormsModule,
+    ProgressSpinnerModule,
     MiniFooterComponent,
     MessagesModule,
     FormViewSubmissionComponent,
@@ -44,11 +46,12 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',
 })
-export class FormSubmitComponent {
+export class FormSubmitComponent implements OnInit {
   form: Form | null = null;
   formId: string = '';
   isLoading: boolean = false;
   isFormSubmitted: boolean = false;
+  isFormDetailsLoading: boolean = true;
 
   formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
 
@@ -70,25 +73,40 @@ export class FormSubmitComponent {
 
     if (param) {
       this.formId = param;
-      this.formService.getFormCached(this.formId).subscribe((res) => {
-        if (res && res?.data) {
-          this.form = res.data;
-
-          let myFormGroupObj: any = {};
-          for (let key of res.data.formFields) {
-            myFormGroupObj['fieldId_' + key.fieldId] = [
-              null,
-              key.required ? Validators.required : null,
-            ];
-          }
-          this.formGroup = this.fb.group(myFormGroupObj);
-
-          if (!this.form?.multipleSubmit) {
-            this.fetchAlreadySubmitted();
-          }
-        }
-      });
     }
+  }
+
+  ngOnInit(): void {
+    this.getFormDetails();
+  }
+
+  getFormDetails(): void {
+    this.formService.getFormCached(this.formId).subscribe((res) => {
+      if (res && res?.data) {
+        this.form = res.data;
+
+        let myFormGroupObj: any = {};
+        for (let key of res.data.formFields) {
+          myFormGroupObj['fieldId_' + key.fieldId] = [
+            null,
+            key.required ? Validators.required : null,
+          ];
+        }
+        this.formGroup = this.fb.group(myFormGroupObj);
+
+        if (!this.form?.multipleSubmit) {
+          this.fetchAlreadySubmitted();
+        } else {
+          this.formDetailsLoaded();
+        }
+      }
+    });
+  }
+
+  formDetailsLoaded(): void {
+    setTimeout(() => {
+      this.isFormDetailsLoading = false;
+    }, 500);
   }
 
   fetchAlreadySubmitted(): void {
@@ -106,6 +124,7 @@ export class FormSubmitComponent {
           }
         });
     });
+    this.formDetailsLoaded();
   }
 
   handleSubmitForm(e: Event): void {
