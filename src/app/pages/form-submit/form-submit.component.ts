@@ -26,6 +26,8 @@ import { Message } from 'primeng/api';
 import { FormSubmitService } from '../../services/form-submit.service';
 import { FormViewSubmissionComponent } from '../../components/form-view-submission/form-view-submission.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
+import { AppUtilService } from '../../services/app-util.service';
 
 @Component({
   selector: 'app-form-submit',
@@ -33,7 +35,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   imports: [
     CardModule,
     CommonModule,
-    FormFieldFactoryComponent,
     InputTextModule,
     DividerModule,
     ButtonModule,
@@ -42,6 +43,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     MiniFooterComponent,
     MessagesModule,
     FormViewSubmissionComponent,
+    DynamicFormComponent,
   ],
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',
@@ -52,8 +54,7 @@ export class FormSubmitComponent implements OnInit {
   isLoading: boolean = false;
   isFormSubmitted: boolean = false;
   isFormDetailsLoading: boolean = true;
-
-  formGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
+  formGroup: FormGroup<any> = new FormGroup({});
 
   // for already submitted variables
   alreadySubmitMessage: Message[] = [
@@ -67,7 +68,8 @@ export class FormSubmitComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private keycloakService: KeycloakService,
     private formSubmitService: FormSubmitService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private appUtilService: AppUtilService
   ) {
     const param = this.activeRoute.snapshot.paramMap.get('formId');
 
@@ -84,16 +86,9 @@ export class FormSubmitComponent implements OnInit {
     this.formService.getFormCached(this.formId).subscribe((res) => {
       if (res && res?.data) {
         this.form = res.data;
-
-        let myFormGroupObj: any = {};
-        for (let key of res.data.formFields) {
-          myFormGroupObj['fieldId_' + key.fieldId] = [
-            null,
-            key.required ? Validators.required : null,
-          ];
-        }
-        this.formGroup = this.fb.group(myFormGroupObj);
-
+        this.formGroup = this.appUtilService.generateFormGroupFromFormFields(
+          res.data.formFields
+        );
         if (!this.form?.multipleSubmit) {
           this.fetchAlreadySubmitted();
         } else {

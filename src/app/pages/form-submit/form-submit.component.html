@@ -35,11 +35,11 @@
       [formGroup]="formGroup"
       *ngIf="isAlreadySubmitted == false; else alreadySubmitted"
     >
-      <app-form-field-factory
+      <app-dynamic-form
+        *ngIf="isFormDetailsLoading == false"
         [formFields]="form.formFields"
-        [respFormGroup]="formGroup"
-      >
-      </app-form-field-factory>
+        [formGroup]="formGroup"
+      ></app-dynamic-form>
       <br />
       <div class="d-flex j-end a-center">
         <p-button

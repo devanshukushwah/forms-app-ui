@@ -1,0 +1,15 @@
+<div [formGroup]="formGroup">
+  <h4>
+    {{ formField.fieldTitle }}
+    <span
+      *ngIf="appUtilService.checkFieldIsRequired(formField, formGroup)"
+      class="required"
+      >*</span
+    >
+  </h4>
+
+  <app-text-field
+    [formGroup]="formGroup"
+    [formField]="formField"
+  ></app-text-field>
+</div>
