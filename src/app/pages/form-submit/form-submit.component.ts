@@ -4,27 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import { Form } from '../../common/interface/Form';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-import { FormFieldFactoryComponent } from '../../components/form-field-factory/form-field-factory.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
-import { FormField } from '../../common/interface/FormField';
-import { FieldInput } from '../../common/interface/FieldInput';
 import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
 import { FormSubmit } from '../../common/interface/FormSubmit';
 import { KeycloakService } from '../../services/keycloak.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MiniFooterComponent } from '../../components/mini-footer/mini-footer.component';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { FormSubmitService } from '../../services/form-submit.service';
-import { FormViewSubmissionComponent } from '../../components/form-view-submission/form-view-submission.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
 import { AppUtilService } from '../../services/app-util.service';
@@ -44,7 +34,6 @@ import { SuccessComponent } from '../../components/cards/success/success.compone
     ProgressSpinnerModule,
     MiniFooterComponent,
     MessagesModule,
-    FormViewSubmissionComponent,
     DynamicFormComponent,
     ProgressSpinnerComponent,
     SuccessComponent,
@@ -66,6 +55,8 @@ export class FormSubmitComponent implements OnInit {
   ];
   isAlreadySubmitted: boolean = false;
   answers: FormFieldAnswer[] = [];
+
+  submissionFormGroup!: FormGroup;
 
   constructor(
     private formService: FormService,
@@ -120,6 +111,11 @@ export class FormSubmitComponent implements OnInit {
           if (res && res.data) {
             this.isAlreadySubmitted = true;
             this.answers = res.data.answers;
+            this.submissionFormGroup =
+              this.appUtilService.generateFormGroupFromFormFieldAndAnswer(
+                this.form?.formFields || [],
+                this.answers
+              );
           }
         });
     });

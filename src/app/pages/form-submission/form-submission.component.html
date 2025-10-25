@@ -7,11 +7,11 @@
     <p-card [header]="form.title">
       <p class="m-0">{{ form.description }}</p>
       <br />
-      <app-form-view-submission
-        *ngIf="form.formFields"
-        [answers]="answers"
+      <app-dynamic-form
+        *ngIf="submissionFormGroup"
+        [formGroup]="submissionFormGroup"
         [formFields]="form.formFields"
-      ></app-form-view-submission>
+      ></app-dynamic-form>
     </p-card>
   </main>
 </div>

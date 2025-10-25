@@ -51,10 +51,10 @@
     </form>
 
     <ng-template #alreadySubmitted>
-      <app-form-view-submission
+      <app-dynamic-form
         [formFields]="form.formFields"
-        [answers]="answers"
-      ></app-form-view-submission>
+        [formGroup]="submissionFormGroup"
+      ></app-dynamic-form>
     </ng-template>
   </p-card>
   <app-mini-footer></app-mini-footer>

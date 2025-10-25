@@ -10,7 +10,6 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { FormFieldFactoryComponent } from '../../components/form-field-factory/form-field-factory.component';
 import { CommonModule } from '@angular/common';
 import { ResponseModel } from '../../common/interface/ResponseModel';
 import { FormSubmit } from '../../common/interface/FormSubmit';
@@ -18,7 +17,8 @@ import { FormAndSubmit } from '../../common/interface/FormAndSubmit';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 import { FormFieldAnswer } from '../../common/interface/FormFieldAnswer';
-import { FormViewSubmissionComponent } from '../../components/form-view-submission/form-view-submission.component';
+import { AppUtilService } from '../../services/app-util.service';
+import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
 
 @Component({
   selector: 'app-form-submission',
@@ -29,7 +29,7 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
     CommonModule,
     ReactiveFormsModule,
     BreadcrumbComponent,
-    FormViewSubmissionComponent,
+    DynamicFormComponent,
   ],
   templateUrl: './form-submission.component.html',
   styleUrl: './form-submission.component.scss',
@@ -40,11 +40,13 @@ export class FormSubmissionComponent {
   resformGroup: FormGroup<any> = new FormGroup({ temp: new FormControl('') });
   breadcrumbItems!: MenuItem[];
   answers: FormFieldAnswer[] = [];
+  submissionFormGroup!: FormGroup;
 
   constructor(
     private formSubmitService: FormSubmitService,
     private fb: FormBuilder,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private appUtilService: AppUtilService
   ) {
     const paramId = this.activeRoute.snapshot.paramMap.get('subId');
     if (paramId) {
@@ -56,6 +58,11 @@ export class FormSubmissionComponent {
           if (res && res.data) {
             this.answers = res.data.submit.answers;
             this.form = res.data.form;
+            this.submissionFormGroup =
+              this.appUtilService.generateFormGroupFromFormFieldAndAnswer(
+                this.form.formFields,
+                this.answers
+              );
             this.initBreadcrumb(res.data.form, res.data.submit);
           }
         });
