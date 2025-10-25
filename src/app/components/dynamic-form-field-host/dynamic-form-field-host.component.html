@@ -16,6 +16,16 @@
       [formGroup]="formGroup"
       [formField]="formField"
     ></app-text-field>
+    <app-date-field
+      *ngSwitchCase="'date'"
+      [formGroup]="formGroup"
+      [formField]="formField"
+    ></app-date-field>
+    <app-radio-field
+      *ngSwitchCase="'radio'"
+      [formGroup]="formGroup"
+      [formField]="formField"
+    ></app-radio-field>
   </div>
 
   <!-- To show required field message -->

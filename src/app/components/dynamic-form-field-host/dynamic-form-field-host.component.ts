@@ -10,6 +10,8 @@ import { TextFieldComponent } from '../fields/text-field/text-field.component';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppUtilService } from '../../services/app-util.service';
+import { DateFieldComponent } from '../fields/date-field/date-field.component';
+import { RadioFieldComponent } from '../fields/radio-field/radio-field.component';
 
 @Component({
   selector: 'app-dynamic-form-field-host',
@@ -19,6 +21,8 @@ import { AppUtilService } from '../../services/app-util.service';
     CommonModule,
     ReactiveFormsModule,
     InputTextModule,
+    DateFieldComponent,
+    RadioFieldComponent,
   ],
   templateUrl: './dynamic-form-field-host.component.html',
   styleUrl: './dynamic-form-field-host.component.scss',

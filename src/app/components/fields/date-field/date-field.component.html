@@ -1,0 +1,23 @@
+<div [formGroup]="formGroup">
+  <!-- Write mode -->
+  <p-calendar
+    *ngIf="!value"
+    [showIcon]="true"
+    class="w-max"
+    size="small"
+    dateFormat="dd-M-yy"
+    [formControlName]="appUtilService.getFieldControlName(formField)"
+    placeholder="Select your date"
+  />
+
+  <!-- Read only mode -->
+  <input
+    *ngIf="value"
+    type="text"
+    pInputText
+    class="w-max"
+    size="small"
+    [value]="formatDate(value)"
+    disabled
+  />
+</div>

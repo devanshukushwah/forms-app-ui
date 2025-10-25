@@ -1,0 +1,15 @@
+<div [formGroup]="formGroup">
+  <div class="d-flex flex-direction-column gap">
+    <div *ngFor="let attribute of formField.attributes" class="field-checkbox">
+      <p-radioButton
+        [inputId]="attribute.attrId.toString()"
+        [name]="appUtilService.getFieldControlName(formField)"
+        [value]="attribute.value"
+        [formControlName]="appUtilService.getFieldControlName(formField)"
+      />
+      <label [for]="attribute.attrId.toString()" class="ml-2">
+        {{ attribute.value }}
+      </label>
+    </div>
+  </div>
+</div>
