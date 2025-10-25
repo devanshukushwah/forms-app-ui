@@ -1,4 +1,5 @@
 <div [formGroup]="formGroup">
+  <!-- field title -->
   <h4>
     {{ formField.fieldTitle }}
     <span
@@ -8,8 +9,23 @@
     >
   </h4>
 
-  <app-text-field
-    [formGroup]="formGroup"
-    [formField]="formField"
-  ></app-text-field>
+  <!-- field types -->
+  <div [ngSwitch]="formField.fieldType">
+    <app-text-field
+      *ngSwitchCase="'input'"
+      [formGroup]="formGroup"
+      [formField]="formField"
+    ></app-text-field>
+  </div>
+
+  <!-- To show required field message -->
+  <div
+    *ngIf="
+      formGroup.get(appUtilService.getFieldControlName(formField))?.invalid &&
+      formGroup.get(appUtilService.getFieldControlName(formField))?.touched
+    "
+    class="error-message"
+  >
+    This field is required!
+  </div>
 </div>

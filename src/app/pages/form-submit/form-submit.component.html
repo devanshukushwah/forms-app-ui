@@ -1,19 +1,15 @@
 <main class="form-container container">
   <div class="bg-img"></div>
-  <p-card *ngIf="isFormDetailsLoading || isFormSubmitted">
-    <div *ngIf="isFormDetailsLoading">
-      <p-progressSpinner ariaLabel="loading" class="d-flex j-end a-center" />
-    </div>
-    <div
-      *ngIf="isFormSubmitted"
-      class="d-flex j-center a-center flex-column gap"
-    >
-      <i class="pi pi-check-circle" style="font-size: 3rem; color: #28a745"></i>
-      <span class="mt-2" style="color: #28a745; font-weight: 500"
-        >Form successfully submitted</span
-      >
-    </div>
-  </p-card>
+
+  <!-- To show loading spinner -->
+  <app-progress-spinner *ngIf="isFormDetailsLoading"></app-progress-spinner>
+
+  <!-- To show success message -->
+  <app-success
+    *ngIf="isFormSubmitted"
+    message="Form successfully submitted"
+  ></app-success>
+
   <p-card
     *ngIf="
       isFormDetailsLoading == false && isFormSubmitted == false && form != null

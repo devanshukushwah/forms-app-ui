@@ -28,6 +28,8 @@ import { FormViewSubmissionComponent } from '../../components/form-view-submissi
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
 import { AppUtilService } from '../../services/app-util.service';
+import { ProgressSpinnerComponent } from '../../components/cards/progress-spinner/progress-spinner.component';
+import { SuccessComponent } from '../../components/cards/success/success.component';
 
 @Component({
   selector: 'app-form-submit',
@@ -44,6 +46,8 @@ import { AppUtilService } from '../../services/app-util.service';
     MessagesModule,
     FormViewSubmissionComponent,
     DynamicFormComponent,
+    ProgressSpinnerComponent,
+    SuccessComponent,
   ],
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',
