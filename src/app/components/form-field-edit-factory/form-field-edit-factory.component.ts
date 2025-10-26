@@ -3,11 +3,12 @@ import { FormField } from '../../common/interface/FormField';
 import { CommonModule } from '@angular/common';
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { CardModule } from 'primeng/card';
+import { FieldCardComponent } from '../cards/field-card/field-card.component';
 
 @Component({
   selector: 'app-form-field-edit-factory',
   standalone: true,
-  imports: [CommonModule, FormFieldComponent, CardModule],
+  imports: [CommonModule, FormFieldComponent, CardModule, FieldCardComponent],
   templateUrl: './form-field-edit-factory.component.html',
   styleUrl: './form-field-edit-factory.component.scss',
 })

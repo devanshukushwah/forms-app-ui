@@ -48,10 +48,20 @@
       />
     </p-footer>
   </p-card>
-  <app-form-field-edit-factory
-    [formFields]="formFields"
-    (deleteFormField)="deleteFormField($event)"
-  ></app-form-field-edit-factory>
+
+  <!-- To display fields -->
+  <div
+    *ngFor="let item of formFields; let idx = index"
+    style="margin-top: var(--global-size)"
+  >
+    <app-field-card
+      [formField]="item"
+      [idx]="idx"
+      (deleteFormField)="deleteFormField($event)"
+      [edit]="true"
+    ></app-field-card>
+  </div>
+
   <ng-container *ngIf="isUpdate === true">
     <div class="space-h"></div>
     <app-card-add-button (click)="handleAddCardButton()"></app-card-add-button>

@@ -24,6 +24,7 @@ import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.comp
 import { MenuItem } from 'primeng/api';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormFieldService } from '../../services/form-field.service';
+import { FieldCardComponent } from '../../components/cards/field-card/field-card.component';
 
 @Component({
   selector: 'app-form',
@@ -36,10 +37,10 @@ import { FormFieldService } from '../../services/form-field.service';
     InputTextareaModule,
     ReactiveFormsModule,
     CommonModule,
-    FormFieldEditFactoryComponent,
     CardAddButtonComponent,
     BreadcrumbComponent,
     CheckboxModule,
+    FieldCardComponent,
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],

@@ -1,0 +1,81 @@
+<form [formGroup]="formGroup">
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="header">
+        <div class="left">
+          <!-- Dropdown to select field type -->
+          <p-dropdown
+            class="fieldTypeDropdown"
+            [options]="fieldTypes"
+            formControlName="fieldType"
+          />
+        </div>
+        <div class="right gap">
+          <p-toggleButton
+            onLabel="Required"
+            offLabel="Not Required"
+            formControlName="required"
+          ></p-toggleButton>
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            [loading]="isDeleteLoading"
+            (onClick)="handleDeleteFormField()"
+          />
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- For display question -->
+    <input
+      type="text"
+      pInputText
+      class="w-max"
+      size="small"
+      [formControlName]="'fieldTitle'"
+      placeholder="Write your question"
+    />
+
+    <!-- For display radio -->
+    <div
+      *ngIf="formGroup.get('fieldType')?.value === 'radio'"
+      formArrayName="attributes"
+    >
+      <br />
+      <div
+        *ngFor="let attribute of attributes.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <p-inputGroup>
+          <p-inputGroupAddon>Option {{ i + 1 }}</p-inputGroupAddon>
+          <input
+            type="text"
+            formControlName="value"
+            pInputText
+            placeholder="Enter some text"
+          />
+          <button
+            type="button"
+            (click)="removeOption(i)"
+            pButton
+            icon="pi pi-times"
+            class="p-button-danger"
+          ></button>
+        </p-inputGroup>
+        <br />
+      </div>
+      <p-button label="Add option" size="small" (click)="addOption()" />
+    </div>
+
+    <p-footer class="d-flex j-end gap">
+      <p-button
+        type="button"
+        label="Save"
+        size="small"
+        (onClick)="handleSave()"
+        [loading]="isLoading"
+        [disabled]="formGroup.invalid || !formGroup.dirty"
+      />
+    </p-footer>
+  </p-card>
+</form>

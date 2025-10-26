@@ -2,10 +2,10 @@
   *ngFor="let item of formFields; let idx = index"
   style="margin-top: var(--global-size)"
 >
-  <app-form-field
+  <app-field-card
     [formField]="item"
     [idx]="idx"
     (deleteFormField)="handleDeleteFormField($event)"
     [edit]="true"
-  ></app-form-field>
+  ></app-field-card>
 </div>
