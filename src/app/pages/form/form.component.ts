@@ -1,30 +1,28 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { FormService } from '../../services/form.service';
-import { Form } from '../../common/interface/Form';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NavigateService } from '../../core/navigate.service';
-import { ResponseModel } from '../../common/interface/ResponseModel';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormFieldFactoryComponent } from '../../components/form-field-factory/form-field-factory.component';
-import { FormField } from '../../common/interface/FormField';
-import { FormFieldEditFactoryComponent } from '../../components/form-field-edit-factory/form-field-edit-factory.component';
-import { CardAddButtonComponent } from '../../components/card-add-button/card-add-button.component';
-import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
 import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
-import { FormFieldService } from '../../services/form-field.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Form } from '../../common/interface/Form';
+import { FormField } from '../../common/interface/FormField';
+import { ResponseModel } from '../../common/interface/ResponseModel';
+import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
+import { CardAddButtonComponent } from '../../components/card-add-button/card-add-button.component';
 import { FieldCardComponent } from '../../components/cards/field-card/field-card.component';
+import { HeaderComponent } from '../../components/header/header.component';
+import { NavigateService } from '../../core/navigate.service';
+import { FormFieldService } from '../../services/form-field.service';
+import { FormService } from '../../services/form.service';
 
 @Component({
   selector: 'app-form',
