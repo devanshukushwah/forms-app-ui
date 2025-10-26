@@ -7,6 +7,12 @@ import { Router } from '@angular/router';
 export class NavigateService {
   constructor(private router: Router) {}
 
+  admin: string = '/admin';
+
+  navigateToHome(): void {
+    this.router.navigate(['/']);
+  }
+
   navigateToForm(): void {
     this.router.navigate(['/create']);
   }
@@ -16,7 +22,7 @@ export class NavigateService {
   }
 
   navigateToAdmin(): void {
-    this.router.navigate(['/admin']);
+    this.router.navigate([this.admin]);
   }
 
   navigateToSubmission(subId: string): void {

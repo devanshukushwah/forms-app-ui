@@ -1,43 +1,34 @@
-import {
-  Attribute,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { FormField } from '../../common/interface/FormField';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FieldAttribute } from '../../common/interface/FieldAttribute';
 import { ButtonModule } from 'primeng/button';
-import { FormFieldService } from '../../services/form-field.service';
-import { ResponseModel } from '../../common/interface/ResponseModel';
-import { CommonModule, DatePipe } from '@angular/common';
-import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { NavigateService } from '../../core/navigate.service';
+import { FormFieldService } from '../../../services/form-field.service';
+import { NavigateService } from '../../../core/navigate.service';
+import { FormField } from '../../../common/interface/FormField';
+import { ResponseModel } from '../../../common/interface/ResponseModel';
 
 interface FieldType {
   type: string;
 }
 
 @Component({
-  selector: 'app-form-field',
+  selector: 'app-field-card',
   standalone: true,
   imports: [
     ToggleButtonModule,
@@ -53,10 +44,10 @@ interface FieldType {
     InputGroupAddonModule,
     InputGroupModule,
   ],
-  templateUrl: './form-field.component.html',
-  styleUrl: './form-field.component.scss',
+  templateUrl: './field-card.component.html',
+  styleUrl: './field-card.component.scss',
 })
-export class FormFieldComponent {
+export class FieldCardComponent {
   @Input() edit: boolean = false;
   @Input() submit: boolean = false;
   @Input() view: boolean = false;

@@ -3,11 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { HttpClientModule } from '@angular/common/http';
-import { FormFieldFactoryComponent } from './components/form-field-factory/form-field-factory.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { HeaderComponent } from './components/header/header.component';
-import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 

@@ -1,0 +1,11 @@
+<!-- To show input field -->
+<div [formGroup]="formGroup">
+  <input
+    type="text"
+    pInputText
+    class="w-max"
+    size="small"
+    placeholder="Enter your text"
+    [formControlName]="appUtilService.getFieldControlName(formField)"
+  />
+</div>

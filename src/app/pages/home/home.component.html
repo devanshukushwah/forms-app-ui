@@ -1,11 +1,11 @@
-<header>
+<!-- <header>
   <app-logo></app-logo>
 
   <p-button
     *ngIf="!keycloakService.isAuthenticated()"
     label="Login"
     severity="success"
-    (onClick)="navigateService.navigateToAdmin()"
+    (onClick)="login()"
     size="small"
   />
   <p-button
@@ -85,6 +85,88 @@
     </div>
   </div>
 </div>
+<footer>
+  <app-logo style="color: white"></app-logo>
+  <div class="footer-links">
+    <a routerLink="/home">Home</a>
+    <a routerLink="/about">About Us</a>
+    <a routerLink="/contact">Contact Us</a>
+  </div>
+</footer> -->
+
+<nav>
+  <app-logo></app-logo>
+
+  <p-button
+    *ngIf="!keycloakService.isAuthenticated()"
+    label="Login"
+    severity="success"
+    (onClick)="login()"
+    size="small"
+  />
+  <p-button
+    *ngIf="keycloakService.isAuthenticated()"
+    label="Dashboard"
+    [outlined]="true"
+    severity="info"
+    (onClick)="navigateService.navigateToAdmin()"
+    size="small"
+  />
+</nav>
+<header>
+  <h1>FormBuilder Pro</h1>
+  <p>
+    Create Dynamic Forms, Collect Submissions, and Export Data as Excel
+    Effortlessly
+  </p>
+</header>
+
+<section>
+  <h2 style="text-align: center; color: #333; font-weight: 600">
+    Why Choose FormBuilder Pro?
+  </h2>
+  <div class="features">
+    <div class="feature">
+      <h3>Dynamic Form Creation</h3>
+      <p>
+        Build custom forms on the fly with our intuitive interface. Add text
+        fields, checkboxes, and more without coding skills.
+      </p>
+    </div>
+    <div class="feature">
+      <h3>Seamless Submissions</h3>
+      <p>
+        Collect user responses securely with our powerful backend. Handle high
+        volumes without worrying about data loss.
+      </p>
+    </div>
+    <div class="feature">
+      <h3>Excel Export</h3>
+      <p>
+        Download your form data as Excel files instantly. Analyze and integrate
+        with your tools effortlessly.
+      </p>
+    </div>
+    <div class="feature">
+      <h3>Reliable Backend</h3>
+      <p>
+        Powered by a robust server-side system for real-time processing,
+        security, and scalability.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="testimonial">
+    <p>
+      "FormBuilder Pro transformed how we gather feedback. It's fast, easy, and
+      the Excel export feature saves us hours!"
+    </p>
+    <cite>- Devanshu, Founder</cite>
+  </div>
+</section>
+
 <footer>
   <app-logo style="color: white"></app-logo>
   <div class="footer-links">

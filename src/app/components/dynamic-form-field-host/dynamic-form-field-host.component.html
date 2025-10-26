@@ -1,0 +1,41 @@
+<div [formGroup]="formGroup">
+  <!-- field title -->
+  <h4>
+    {{ formField.fieldTitle }}
+    <span
+      *ngIf="appUtilService.checkFieldIsRequired(formField, formGroup)"
+      class="required"
+      >*</span
+    >
+  </h4>
+
+  <!-- field types -->
+  <div [ngSwitch]="formField.fieldType">
+    <app-text-field
+      *ngSwitchCase="'input'"
+      [formGroup]="formGroup"
+      [formField]="formField"
+    ></app-text-field>
+    <app-date-field
+      *ngSwitchCase="'date'"
+      [formGroup]="formGroup"
+      [formField]="formField"
+    ></app-date-field>
+    <app-radio-field
+      *ngSwitchCase="'radio'"
+      [formGroup]="formGroup"
+      [formField]="formField"
+    ></app-radio-field>
+  </div>
+
+  <!-- To show required field message -->
+  <div
+    *ngIf="
+      formGroup.get(appUtilService.getFieldControlName(formField))?.invalid &&
+      formGroup.get(appUtilService.getFieldControlName(formField))?.touched
+    "
+    class="error-message"
+  >
+    This field is required!
+  </div>
+</div>

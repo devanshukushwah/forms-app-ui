@@ -1,6 +1,21 @@
-<main *ngIf="form != null" class="form-container container">
+<main class="form-container container">
   <div class="bg-img"></div>
-  <p-card [header]="form.title">
+
+  <!-- To show loading spinner -->
+  <app-progress-spinner *ngIf="isFormDetailsLoading"></app-progress-spinner>
+
+  <!-- To show success message -->
+  <app-success
+    *ngIf="isFormSubmitted"
+    message="Form successfully submitted"
+  ></app-success>
+
+  <p-card
+    *ngIf="
+      isFormDetailsLoading == false && isFormSubmitted == false && form != null
+    "
+    [header]="form.title"
+  >
     <ng-template pTemplate="header">
       <div class="form-info" *ngIf="isAlreadySubmitted">
         <p-messages
@@ -16,11 +31,11 @@
       [formGroup]="formGroup"
       *ngIf="isAlreadySubmitted == false; else alreadySubmitted"
     >
-      <app-form-field-factory
+      <app-dynamic-form
+        *ngIf="isFormDetailsLoading == false"
         [formFields]="form.formFields"
-        [respFormGroup]="formGroup"
-      >
-      </app-form-field-factory>
+        [formGroup]="formGroup"
+      ></app-dynamic-form>
       <br />
       <div class="d-flex j-end a-center">
         <p-button
@@ -36,10 +51,10 @@
     </form>
 
     <ng-template #alreadySubmitted>
-      <app-form-view-submission
+      <app-dynamic-form
         [formFields]="form.formFields"
-        [answers]="answers"
-      ></app-form-view-submission>
+        [formGroup]="submissionFormGroup"
+      ></app-dynamic-form>
     </ng-template>
   </p-card>
   <app-mini-footer></app-mini-footer>
